@@ -41,11 +41,13 @@ async function initView (youtubeId) {
 
 async function setSongInfo (youtubeId) {
   const resData = await getSongInfo(youtubeId);
-  playList.push({
+  const item = {
     id: youtubeId,
     title: resData.title,
     author: resData.author
-  });
+  };
+  playList.push(item);
+  appendSongListDom(item);
 }
 
 function playSong (type = 'after') {
@@ -56,6 +58,32 @@ function playSong (type = 'after') {
   initView(youtubeId);
   setAudio(youtubeId);
   playAudio.play();
+  moveNowSongList();
+}
+
+function moveNowSongList () {
+  for (let i = 0; i < playList.length; i++) {
+    if (playList[i].id === playList[nowPlaySongIndex].id) {
+      document.getElementById(`songListItem-${playList[nowPlaySongIndex].id}`).classList.add('song-list-item-active');
+    } else {
+      if (document.getElementById(`songListItem-${playList[i].id}`).classList.contains('song-list-item-active')) {
+        document.getElementById(`songListItem-${playList[i].id}`).classList.remove('song-list-item-active');
+      }
+    }
+  }
+}
+
+function appendSongListDom (item) {
+  const songListItem = document.createElement('div');
+  songListItem.classList.add('song-list-item');
+  songListItem.id = `songListItem-${item.id}`;
+  songListItem.innerHTML = `
+    <div class="song-list-item-box">
+      <h3>${item.title}</h3>
+      <h4>${item.author}</h4>
+    </div>
+  `;
+  document.getElementById('songList').appendChild(songListItem);
 }
 
 document.getElementById('playButton').addEventListener('click', function() {
