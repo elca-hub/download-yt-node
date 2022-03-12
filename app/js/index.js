@@ -34,13 +34,13 @@ async function initView (youtubeId) {
     await new Promise((resolve) => { setTimeout(resolve, 1 * 1000); });
   }
   document.getElementById('nowPlaySongImg').src = getThumbnail(youtubeId);
+  document.getElementById('nowPlaySongTitle').innerText = playList[nowPlaySongIndex].title;
+  document.getElementById('nowPlaySongAuthor').innerText = playList[nowPlaySongIndex].author;
   document.getElementById('nowPlaySongBox').classList.add('now-play-song-box-fade');
 }
 
 async function setSongInfo (youtubeId) {
   const resData = await getSongInfo(youtubeId);
-  document.getElementById('nowPlaySongTitle').innerText = resData.title;
-  document.getElementById('nowPlaySongAuthor').innerText = resData.author;
   playList.push({
     id: youtubeId,
     title: resData.title,
@@ -48,9 +48,10 @@ async function setSongInfo (youtubeId) {
   });
 }
 
-function playSong () {
+function playSong (type = 'after') {
   isPlaying = true;
-  nowPlaySongIndex++;
+  if (type === 'after') nowPlaySongIndex++;
+  else if (type === 'before') nowPlaySongIndex--;
   const youtubeId = playList[nowPlaySongIndex].id;
   initView(youtubeId);
   setAudio(youtubeId);
@@ -85,6 +86,14 @@ document.getElementById('nextSongText').addEventListener('click', () => {
     playAudio.pause();
     playAudio.currentTime = 0;
     playSong();
+  }
+})
+
+document.getElementById('BeforeSongText').addEventListener('click', () => {
+  if (nowPlaySongIndex > 0) {
+    playAudio.pause();
+    playAudio.currentTime = 0;
+    playSong('before');
   }
 })
 
