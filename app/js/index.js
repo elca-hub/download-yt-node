@@ -22,7 +22,7 @@ async function getSongInfo (videoId) {
 }
 
 function initView (youtubeId) {
-  document.getElementById('songWork').style.animation = 'fadeSongWorkAnime 1s';
+  document.getElementById('nowPlaySongBox').style.animation = 'fadeSongWorkAnime 1s';
   document.getElementById('nowPlaySongImg').src = getThumbnail(youtubeId);
 }
 

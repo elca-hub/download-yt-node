@@ -29,18 +29,68 @@
   font-size: 1.2rem;
 }
 
+.play-button-box {
+  width: 100%;
+  text-align: center;
+}
+
+.play-button {
+  border: solid 1px #c4302b;
+  border-radius: 2px;
+  background: rgba(0, 0, 0, 0);
+  font-size: 1.4rem;
+  padding-left: 10%;
+  padding-right: 10%;
+  cursor: pointer;
+}
+
 .input-youtube-id-box p {
   color: #555;
   margin: 0;
 }
 
 .song-work {
+  width: 100%;
+  display: flex;
+}
+
+.now-play-song-box {
   position: relative;
   opacity: 0;
   animation-fill-mode: forwards!important;
   animation-timing-function: ease-out;
+  width: 50%;
 }
 
+.now-play-song-box h2 {
+  font-size: 1.7em;
+  margin: 0;
+  margin-bottom: 10px;
+  color: #333;
+  display: flex;
+  align-items: center;
+}
+
+.now-play-song-image img {
+  border: solid 1px #ddd;
+  border-radius: 5px;
+  object-fit: cover;
+  width: 100%;
+}
+
+.now-play-song-title {
+  margin: 0;
+  font-size: 1.2rem;
+  color: #333;
+}
+
+.now-play-song-author {
+  margin: 0;
+  font-size: 1rem;
+  color: #555;
+}
+
+/* ソングワークのアニメーション */
 @keyframes fadeSongWorkAnime {
   0% {
     opacity: 0;

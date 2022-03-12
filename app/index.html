@@ -17,12 +17,19 @@
         <p>聴きたい曲のVideoIDを入力</p>
         <input type="text" class="input-youtube-id" id="inputYoutubeId" placeholder="https://www.youtube.com/watch?v=[VideoID]" />
       </div>
-      <button id="playButton">
-        Play
-      </button>
+      <div class="play-button-box">
+        <button id="playButton" class="play-button">
+          Play
+        </button>
+      </div>
       <div class="song-work" id="songWork">
-        <div class="now-play-song-box">
-          <p>Now Play</p>
+        <div class="now-play-song-box" id="nowPlaySongBox">
+          <h2>
+            Now Play
+            <svg xmlns="http://www.w3.org/2000/svg" width="1.7rem" height="1.7rem" fill="currentColor" class="bi bi-caret-right-fill" viewBox="0 0 16 16">
+              <path d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z"/>
+            </svg>
+          </h2>
           <div class="now-play-song">
             <div class="now-play-song-image">
               <img id="nowPlaySongImg" alt="サムネイル"/>
