@@ -1,3 +1,7 @@
+body {
+  margin: 0;
+}
+
 .header {
   width: 100%;
   text-align: center;
@@ -60,6 +64,7 @@
   width: 50%;
   right: 500px;
   transition: all 1s;
+  padding-left: 10px;
 }
 
 .now-play-song-box-fade {
@@ -135,6 +140,7 @@
 
 .song-list {
   position: relative;
+  padding-left: 10px;
 }
 
 .song-list-item-box h3 {
@@ -145,6 +151,7 @@
 .song-list-item-box h4 {
   margin: 0;
   color: #777;
+  font-weight: normal;
 }
 
 .song-list-item {
@@ -153,6 +160,12 @@
   opacity: 0;
   left: 500px;
   transition: all 1s;
+  cursor: pointer;
+}
+
+.song-list-item:hover {
+  opacity: .8;
+  transform: scale(0.96);
 }
 
 .song-list-item-fade {
@@ -166,5 +179,5 @@
 }
 
 .song-list-item-active {
-  background: red;
+  background: linear-gradient(rgba(0, 0, 0, 0), rgba(196, 48, 43, 0.1));
 }
