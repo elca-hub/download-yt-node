@@ -1,16 +1,29 @@
-document.getElementById('downloadButton').addEventListener('click', function() {
-  const youtubeId = document.getElementById('inputYoutubeId').value
-  fetch(`http://localhost:3000/download?youtubeId=${youtubeId}`, { mode: 'cors' })
-   .then(res => res.blob())
-    .then(blob => {
-      const url = window.URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = `${youtubeId}.mp3`;
-      document.body.appendChild(a);
-      a.click();
-      a.remove();
-      window.URL.revokeObjectURL(url);
-    }
-  )
+let playAudio = new Audio();
+let playList = [];
+
+function makeReqPath (videoId) {
+  return `http://localhost:3000/get/${videoId}`;
+}
+
+function setAudio (videoId) {
+  reqPath = `${makeReqPath(videoId)}/audio`;
+  playAudio = new Audio(reqPath);
+}
+
+function getThumbnail (videoId) {
+  return `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`;
+}
+
+function initView (youtubeId) {
+  document.getElementById('songWork').style.animation = 'fadeSongWorkAnime 1s';
+  document.getElementById('nowPlaySongImg').src = getThumbnail(youtubeId);
+}
+
+document.getElementById('playButton').addEventListener('click', function() {
+  const youtubeId = document.getElementById('inputYoutubeId').value;
+  if (!playList.length) {
+    setAudio(youtubeId);
+    playAudio.play();
+    initView(youtubeId);
+  }
 })

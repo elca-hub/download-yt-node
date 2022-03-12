@@ -2,23 +2,37 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Youtube Donwloder</title>
+    <title>Youtube Listener</title>
     <link rel="stylesheet" href="./css/index.css">
   </head>
   <body>
     <div class="header">
       <h1>
-        <span>Y</span>outube Donwloder
+        <span>Y</span>outube <span>L</span>istener
       </h1>
     </div>
     <div class="main">
       <div class="input-youtube-id-box">
-        <p>ダウンロードしたいyoutubeのidを入力</p>
-        <input type="text" class="input-youtube-id" id="inputYoutubeId" />
+        <p>聴きたい曲のVideoIDを入力</p>
+        <input type="text" class="input-youtube-id" id="inputYoutubeId" placeholder="https://www.youtube.com/watch?v=[VideoID]" />
       </div>
-      <button id="downloadButton">
-        ダウンロード
+      <button id="playButton">
+        Play
       </button>
+      <div class="song-work" id="songWork">
+        <div class="now-play-song-box">
+          <p>Now Play</p>
+          <div class="now-play-song">
+            <div class="now-play-song-image">
+              <img id="nowPlaySongImg" alt="サムネイル"/>
+            </div>
+            <div class="now-play-song-info">
+              <p class="now-play-song-title">[SongTitle]</p>
+              <p class="now-play-song-artist">[Artist]</p>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
     <script src="./js/index.js"></script>
   </body>
