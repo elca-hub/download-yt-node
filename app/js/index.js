@@ -84,6 +84,9 @@ function appendSongListDom (item) {
     </div>
   `;
   document.getElementById('songList').appendChild(songListItem);
+  setTimeout(() => {
+    document.getElementById(`songListItem-${item.id}`).classList.add('song-list-item-fade');
+  }, 500);
 }
 
 document.getElementById('playButton').addEventListener('click', function() {

@@ -133,6 +133,10 @@
   color: #777;
 }
 
+.song-list {
+  position: relative;
+}
+
 .song-list-item-box h3 {
   margin: 0;
   color: #333;
@@ -141,6 +145,24 @@
 .song-list-item-box h4 {
   margin: 0;
   color: #777;
+}
+
+.song-list-item {
+  position: relative;
+  width: 100%;
+  opacity: 0;
+  left: 500px;
+  transition: all 1s;
+}
+
+.song-list-item-fade {
+  opacity: 1;
+  left: 0;
+}
+
+.song-list-item-fade {
+  opacity: 1;
+  left: 0;
 }
 
 .song-list-item-active {
