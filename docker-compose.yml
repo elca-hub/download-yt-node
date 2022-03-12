@@ -5,4 +5,12 @@ services:
     build:
       context: api
     ports:
-      - "8080:8000"
+      - "3000:3030"
+  app:
+    image: nginx:latest
+    ports:
+      - "8080:80"
+    volumes:
+      - ./app:/usr/share/nginx/html
+    depends_on:
+      - api
