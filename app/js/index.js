@@ -84,6 +84,7 @@ function appendSongListDom (item) {
     </div>
   `;
   songListItem.addEventListener('click', () => {
+    if (playList[nowPlaySongIndex].id === item.id) return
     nowPlaySongIndex = playList.findIndex((playItem) => {
       return playItem.id ===  item.id;
     })
