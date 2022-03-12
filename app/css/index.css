@@ -91,15 +91,29 @@
 }
 
 .song-controller {
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
   position: fixed;
   width: 100vw;
   bottom: 0;
   left: 0;
   z-index: 2;
   border-top: solid 1px #999;
+  background-color: #fff;
+}
+
+.song-controller-panel {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.song-controller-time {
+  text-align: center;
+}
+
+.song-controller-time p {
+  margin: 0;
+  font-size: .9rem;
+  color: #777;
 }
 
 /* ソングワークのアニメーション */
