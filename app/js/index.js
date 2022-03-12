@@ -1,6 +1,7 @@
 let playAudio = new Audio();
 let playList = [];
 let isPlaying = false;
+let nowPlaySongIndex = -1;
 
 let viewPlayTime = null;
 
@@ -36,18 +37,27 @@ async function setSongInfo (youtubeId) {
   const resData = await getSongInfo(youtubeId);
   document.getElementById('nowPlaySongTitle').innerText = resData.title;
   document.getElementById('nowPlaySongAuthor').innerText = resData.author;
+  playList.push({
+    id: youtubeId,
+    title: resData.title,
+    author: resData.author
+  });
+}
+
+function playSong () {
+  isPlaying = true;
+  nowPlaySongIndex++;
+  const youtubeId = playList[nowPlaySongIndex].id;
+  setAudio(youtubeId);
+  playAudio.play();
 }
 
 document.getElementById('playButton').addEventListener('click', function() {
   const youtubeId = document.getElementById('inputYoutubeId').value;
-  if (!playList.length) {
-    setAudio(youtubeId);
-    playAudio.play();
-    isPlaying = true;
-    setSongInfo(youtubeId).then(() => {
-      initView(youtubeId);
-    });
-  }
+  setSongInfo(youtubeId).then(() => {
+    initView(youtubeId);
+    playSong();
+  });
 })
 
 document.getElementById('songPlay').addEventListener('click', () => {
@@ -65,3 +75,8 @@ document.getElementById('songPlay').addEventListener('click', () => {
     clearInterval(viewPlayTime);
   }
 })
+
+playAudio.onended = () => {
+  isPlaying = false;
+  playAudio.currentTime = 0;
+}
