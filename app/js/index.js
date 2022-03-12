@@ -83,6 +83,14 @@ function appendSongListDom (item) {
       <h4>${item.author}</h4>
     </div>
   `;
+  songListItem.addEventListener('click', () => {
+    nowPlaySongIndex = playList.findIndex((playItem) => {
+      return playItem.id ===  item.id;
+    })
+    playAudio.pause();
+    playAudio.currentTime = 0;
+    playSong('no-action');
+  })
   document.getElementById('songList').appendChild(songListItem);
   setTimeout(() => {
     document.getElementById(`songListItem-${item.id}`).classList.add('song-list-item-fade');
