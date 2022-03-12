@@ -57,9 +57,14 @@
 .now-play-song-box {
   position: relative;
   opacity: 0;
-  animation-fill-mode: forwards!important;
-  animation-timing-function: ease-out;
   width: 50%;
+  right: 100px;
+  transition: all 1s;
+}
+
+.now-play-song-box-fade {
+  opacity: 1;
+  right: 0;
 }
 
 .song-list-box {
@@ -126,16 +131,4 @@
   margin: 0;
   font-size: .9rem;
   color: #777;
-}
-
-/* ソングワークのアニメーション */
-@keyframes fadeSongWorkAnime {
-  0% {
-    opacity: 0;
-    right: 100px;
-  }
-  100% {
-    opacity: 1;
-    right: 0;
-  }
 }

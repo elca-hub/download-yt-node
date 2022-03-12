@@ -29,8 +29,12 @@ async function getSongInfo (videoId) {
 }
 
 async function initView (youtubeId) {
-  document.getElementById('nowPlaySongBox').style.animation = 'fadeSongWorkAnime 1s';
+  if (nowPlaySongIndex !== -1) {
+    document.getElementById('nowPlaySongBox').classList.remove('now-play-song-box-fade');
+    await new Promise((resolve) => { setTimeout(resolve, 1 * 1000); });
+  }
   document.getElementById('nowPlaySongImg').src = getThumbnail(youtubeId);
+  document.getElementById('nowPlaySongBox').classList.add('now-play-song-box-fade');
 }
 
 async function setSongInfo (youtubeId) {
@@ -48,6 +52,7 @@ function playSong () {
   isPlaying = true;
   nowPlaySongIndex++;
   const youtubeId = playList[nowPlaySongIndex].id;
+  initView(youtubeId);
   setAudio(youtubeId);
   playAudio.play();
 }
@@ -55,8 +60,7 @@ function playSong () {
 document.getElementById('playButton').addEventListener('click', function() {
   const youtubeId = document.getElementById('inputYoutubeId').value;
   setSongInfo(youtubeId).then(() => {
-    initView(youtubeId);
-    playSong();
+    if (!isPlaying) playSong();
   });
 })
 
@@ -73,6 +77,14 @@ document.getElementById('songPlay').addEventListener('click', () => {
   } else if (!isPlaying && playAudio.src !== '') {
     playAudio.pause();
     clearInterval(viewPlayTime);
+  }
+})
+
+document.getElementById('nextSongText').addEventListener('click', () => {
+  if (nowPlaySongIndex < playList.length - 1) {
+    playAudio.pause();
+    playAudio.currentTime = 0;
+    playSong();
   }
 })
 
