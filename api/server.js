@@ -39,6 +39,15 @@ const server = http.createServer((req, res) => {
         format: 'mp3',
       });
       audio.pipe(res);
+    } else if (paramsArray.urlParams[2] === 'info') {
+      ytdl.getInfo(path).then((info) => {
+        res.setHeader('Content-Type', 'application/json');
+        const resData = {
+          title: info.player_response.videoDetails.title,
+          author: info.player_response.videoDetails.author
+        };
+        res.end(JSON.stringify(resData));
+      });
     }
   }
 });

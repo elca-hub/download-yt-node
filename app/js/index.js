@@ -14,9 +14,22 @@ function getThumbnail (videoId) {
   return `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`;
 }
 
+async function getSongInfo (videoId) {
+  reqPath = `${makeReqPath(videoId)}/info`;
+  const res = await fetch(reqPath);
+  const resData = await res.json();
+  return resData;
+}
+
 function initView (youtubeId) {
   document.getElementById('songWork').style.animation = 'fadeSongWorkAnime 1s';
   document.getElementById('nowPlaySongImg').src = getThumbnail(youtubeId);
+}
+
+async function setSongInfo (youtubeId) {
+  const resData = await getSongInfo(youtubeId);
+  document.getElementById('nowPlaySongTitle').innerText = resData.title;
+  document.getElementById('nowPlaySongAuthor').innerText = resData.author;
 }
 
 document.getElementById('playButton').addEventListener('click', function() {
@@ -24,6 +37,8 @@ document.getElementById('playButton').addEventListener('click', function() {
   if (!playList.length) {
     setAudio(youtubeId);
     playAudio.play();
-    initView(youtubeId);
+    setSongInfo(youtubeId).then(() => {
+      initView(youtubeId);
+    });
   }
 })
