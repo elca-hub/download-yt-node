@@ -2,6 +2,10 @@ let playAudio = new Audio();
 let playList = [];
 let isPlaying = false;
 let nowPlaySongIndex = -1;
+let repeatType = {
+  index: 0,
+  type: ['no-repeat', 'repeat-list', 'repeat']
+};
 
 let viewPlayTime = null;
 
@@ -14,6 +18,9 @@ function setAudio (videoId) {
   playAudio = new Audio(reqPath);
   viewPlayTime = setInterval(() => {
     document.getElementById('songTime').innerText = playAudio.currentTime;
+    if (playAudio.ended) {
+      finishSong();
+    }
   }, 500);
 }
 
@@ -98,6 +105,22 @@ function appendSongListDom (item) {
   }, 500);
 }
 
+function finishSong () {
+  isPlaying = false;
+  playAudio.currentTime = 0;
+  console.log(repeatType.type[repeatType.index]);
+  if (repeatType.type[repeatType.index] === 'repeat') {
+    playSong('no-action');
+  } else if (repeatType.type[repeatType.index] === 'repeat-list') {
+    if (nowPlaySongIndex < playList.length - 1) {
+      playSong();
+    } else {
+      nowPlaySongIndex = 0;
+      playSong('no-action');
+    }
+  }
+}
+
 document.getElementById('playButton').addEventListener('click', function() {
   const youtubeId = document.getElementById('inputYoutubeId').value;
   setSongInfo(youtubeId).then(() => {
@@ -137,7 +160,17 @@ document.getElementById('BeforeSongText').addEventListener('click', () => {
   }
 })
 
-playAudio.onended = () => {
-  isPlaying = false;
-  playAudio.currentTime = 0;
-}
+document.getElementById('songRepeat').addEventListener('click', () => {
+  repeatType.index++;
+  if (repeatType.index >= repeatType.type.length) repeatType.index = 0;
+  if (repeatType.index === 0) {
+    document.getElementById('songRepeat').classList.remove('song-repeat-active');
+  } else if (repeatType.index === 1) {
+    document.getElementById('songRepeat').classList.add('song-repeat-active');
+  }
+  if (repeatType.index === 2) {
+    document.getElementById('repeatTypeText').innerText = '1';
+  } else {
+    document.getElementById('repeatTypeText').innerText = '';
+  }
+})
