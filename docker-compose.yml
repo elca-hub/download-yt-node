@@ -7,10 +7,17 @@ services:
     ports:
       - "3000:3030"
   app:
-    image: nginx:latest
+    image: nginx:1.21.6
     ports:
       - "8080:80"
     volumes:
       - ./app:/usr/share/nginx/html
     depends_on:
       - api
+  vue-test:
+    image: nginx:1.21.6
+    ports:
+      - "8080:80"
+    volumes:
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+      - ./test/youtube-speaker/dist:/usr/share/nginx/html
