@@ -1,16 +1,18 @@
 <template>
   <div class="song-info-main-box">
     <song-work-organism class="song-work" />
-    <div></div>
+    <song-list-organism class="song-list" />
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 import SongWorkOrganism from '@/components/organism/SongWorkOrganism.vue';
+import SongListOrganism from '@/components/organism/SongListOrganism.vue';
 @Component({
   components: {
-    SongWorkOrganism
+    SongWorkOrganism,
+    SongListOrganism
   }
 })
 export default class SongInfoTemplate extends Vue {}
@@ -23,6 +25,9 @@ export default class SongInfoTemplate extends Vue {}
 }
 
 .song-work {
+  width: 50%;
+}
+.song-list {
   width: 50%;
 }
 </style>
