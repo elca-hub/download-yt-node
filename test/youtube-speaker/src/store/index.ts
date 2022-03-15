@@ -12,6 +12,10 @@ export default new Vuex.Store({
     nowPlayingSongIndex: -1, // 現在再生されている曲に対応したvideoListのindex
     isPlaying: false, // 再生中か
     audioObj: new Audio() as HTMLAudioElement, // audioオブジェクト
+    repeatTypeObj: {
+      list: ['none', 'all', 'one'],
+      index: 0
+    }
   },
   getters: {
     getNowPlayingVideoItem (state) {
@@ -20,6 +24,9 @@ export default new Vuex.Store({
     },
     isFirstPlay (state) {
       return state.nowPlayingSongIndex === -1
+    },
+    getNowRepeatType (state) {
+      return state.repeatTypeObj.list[state.repeatTypeObj.index]
     }
   },
   mutations: {
@@ -57,6 +64,10 @@ export default new Vuex.Store({
       console.log(state.nowPlayingSongIndex)
       const playVideoId = state.videoList[state.nowPlayingSongIndex].id
       dispatch('setAudioObj', playVideoId)
+    },
+    changeRepeatType ({ state }) {
+      state.repeatTypeObj.index++
+      if (state.repeatTypeObj.index >= state.repeatTypeObj.list.length) state.repeatTypeObj.index = 0
     }
   },
   modules: {
