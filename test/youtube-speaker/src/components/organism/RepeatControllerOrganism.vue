@@ -29,12 +29,19 @@ export default class RepeatController extends Vue {
   text-align: center;
   position: relative;
   color: #888;
+  font-size: 1.6rem;
+  cursor: pointer;
+  transition: opacity .5s;
+  &:hover {
+    opacity: .8;
+  }
   p {
     margin: 0;
     position: absolute;
-    font-size: 5px;
+    font-size: .8rem;
     bottom: 0;
     right: -5px;
+    color: #333;
   }
 }
 
