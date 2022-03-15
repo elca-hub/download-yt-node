@@ -7,6 +7,11 @@
           <div class="now-play-song">
             <div class="now-play-song-image">
               <img :src="thumbnailSrc" />
+              <div
+                class="now-play-song-time-bar"
+                :style="songTimeBarStleObj"
+              >
+              </div>
             </div>
             <div class="now-play-song-info">
               <p class="now-play-song-title" v-if="getNowPlayingSongInfoObj.title.length">{{ getNowPlayingSongInfoObj.title }}</p>
@@ -32,6 +37,10 @@ import  NowPlayingHeaderMolecule  from "@/components/molecule/NowPlayingHeaderMo
 export default class SongWorkOrganism extends Vue {
   beforeId = '';
   isFade = false;
+  songTimeBarStleObj = {
+    width: '0',
+    transition: 'none'
+  }
 
   @Watch('$store.getters.getNowPlayingVideoItem')
   public fadeAnimation () {
@@ -44,6 +53,18 @@ export default class SongWorkOrganism extends Vue {
         });
       }
       this.beforeId = nowPlayingSongItem.id;
+    }
+  }
+
+  @Watch('$store.state.audioNowTime')
+  public updateSongTimeBar () {
+    const audioObj = this.$store.state.audioObj;
+    const audioDuration = audioObj.duration;
+    const audioNowTime = audioObj.currentTime;
+    const audioTimeBarWidth = (audioNowTime / audioDuration) * 100;
+    this.songTimeBarStleObj = {
+      width: `${audioTimeBarWidth}%`,
+      transition: 'width .5s linear'
     }
   }
 
@@ -80,6 +101,13 @@ export default class SongWorkOrganism extends Vue {
           border-radius: 5px;
           width: 100%;
           object-fit: cover;
+        }
+        .now-play-song-time-bar {
+          position: absolute;
+          bottom: 5px;
+          left: 0;
+          height: 5px;
+          background-color: #c4302b;
         }
       }
       .now-play-song-info {

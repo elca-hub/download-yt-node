@@ -15,7 +15,9 @@ export default new Vuex.Store({
     repeatTypeObj: {
       list: ['none', 'all', 'one'],
       index: 0
-    }
+    },
+    audioNowTime: 0, // 現在の再生時間
+    audioTimer: 0
   },
   getters: {
     getNowPlayingVideoItem (state) {
@@ -38,11 +40,20 @@ export default new Vuex.Store({
     }
   },
   actions: {
+    startTimer ({ state }) {
+      state.audioTimer = setInterval(() => {
+        state.audioNowTime = state.audioObj.currentTime
+      }, 500);
+    },
+    stopTimer ({ state }) {
+      clearInterval(state.audioTimer)
+    },
     setAudioObj ({ state, dispatch }, videoId) {
       state.audioObj.pause() // 一時停止
       state.isPlaying = false
       state.audioObj = new Audio(YoutubeApiService.getAudioUrl(videoId)) // audioオブジェクトを作成
       state.audioObj.addEventListener('ended', () => { // 曲が最後まで終了したら
+        dispatch('stopTimer') // タイマーを停止
         state.isPlaying = false
         const repeatType = state.repeatTypeObj.list[state.repeatTypeObj.index]
         if (repeatType === 'one') {
@@ -55,9 +66,11 @@ export default new Vuex.Store({
       })
       state.audioObj.addEventListener('play', () => { // 曲が再生されたら
         state.isPlaying = true
+        dispatch('startTimer') // タイマーを開始
       })
       state.audioObj.addEventListener('pause', () => { // 曲が一時停止されたら
         state.isPlaying = false
+        dispatch('stopTimer') // タイマーを停止
       })
       state.nowPlayingSongIndex = state.videoList.findIndex(item => item.id === videoId)
       if (!state.isPlaying) state.audioObj.play()
