@@ -7,7 +7,7 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    videoId: '',
+    videoId: '', // 追加された動画のID
     videoList: [] as IYoutubeData[],
     nowPlayingSongIndex: -1, // 現在再生されている曲に対応したvideoListのindex
     isPlaying: false, // 再生中か
