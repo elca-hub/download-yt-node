@@ -39,13 +39,12 @@ export default class SongWorkOrganism extends Vue {
     if (nowPlayingSongItem !== null) {
       if (nowPlayingSongItem.id === this.$store.state.videoId || this.beforeId !== nowPlayingSongItem.id) {
         this.isFade = false;
-        setTimeout(() => {
+        this.$store.state.audioObj.addEventListener('loadeddata', () => {
           this.isFade = true;
-        }, 250);
+        });
       }
       this.beforeId = nowPlayingSongItem.id;
     }
-    console.log(nowPlayingSongItem);
   }
 
   get thumbnailSrc () {
@@ -75,11 +74,12 @@ export default class SongWorkOrganism extends Vue {
     .now-play-song {
       width: 100%;
       .now-play-song-image {
+        position: relative;
         img {
           border: solid 1px #ddd;
           border-radius: 5px;
-          object-fit: cover;
           width: 100%;
+          object-fit: cover;
         }
       }
       .now-play-song-info {
