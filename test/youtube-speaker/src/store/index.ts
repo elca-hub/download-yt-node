@@ -38,12 +38,20 @@ export default new Vuex.Store({
     }
   },
   actions: {
-    setAudioObj ({ state }, videoId) {
+    setAudioObj ({ state, dispatch }, videoId) {
       state.audioObj.pause() // 一時停止
       state.isPlaying = false
       state.audioObj = new Audio(YoutubeApiService.getAudioUrl(videoId)) // audioオブジェクトを作成
       state.audioObj.addEventListener('ended', () => { // 曲が最後まで終了したら
         state.isPlaying = false
+        const repeatType = state.repeatTypeObj.list[state.repeatTypeObj.index]
+        if (repeatType === 'one') {
+          state.audioObj.pause()
+          state.audioObj.currentTime = 0
+          state.audioObj.play()
+        } else if (repeatType === 'all') {
+          dispatch('skipSong', true)
+        }
       })
       state.audioObj.addEventListener('play', () => { // 曲が再生されたら
         state.isPlaying = true
@@ -59,9 +67,19 @@ export default new Vuex.Store({
       else state.audioObj.pause()
     },
     skipSong ({ state, dispatch }, isNext: boolean) {
-      if (isNext) state.nowPlayingSongIndex++
-      else state.nowPlayingSongIndex--
-      console.log(state.nowPlayingSongIndex)
+      if (isNext) {
+        if (state.nowPlayingSongIndex < state.videoList.length - 1) {
+          state.nowPlayingSongIndex++
+        } else {
+          state.nowPlayingSongIndex = 0
+        }
+      } else {
+        if (state.nowPlayingSongIndex > 0) {
+          state.nowPlayingSongIndex--
+        } else {
+          state.nowPlayingSongIndex = state.videoList.length - 1
+        }
+      }
       const playVideoId = state.videoList[state.nowPlayingSongIndex].id
       dispatch('setAudioObj', playVideoId)
     },
