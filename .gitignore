@@ -6,6 +6,7 @@ test.txt
 node_modules
 dist
 
+backup
 
 # local env files
 .env.local
