@@ -1,5 +1,5 @@
 <template>
-  <div class="song-list-item-molecule">
+  <div class="song-list-item-molecule" @click="changePlaySong(item.id)">
     <h2>{{ item.title }}</h2>
     <p>{{ item.author }}</p>
   </div>
@@ -13,11 +13,20 @@ import IYoutubeData from '@/interfaces/IYoutubeData';
 export default class SongListItemMolecule extends Vue {
   @Prop()
   public item!: IYoutubeData;
+  
+  public changePlaySong (id: string) {
+    this.$store.dispatch('setAudioObj', id);
+  }
 }
 </script>
 
 <style lang="scss" scoped>
 .song-list-item-molecule {
+  cursor: pointer;
+  &:hover {
+    opacity: .8;
+    transform: scale(0.96);
+  }
   h2 {
     font-size: 1.7em;
     margin: 0;
@@ -25,7 +34,7 @@ export default class SongListItemMolecule extends Vue {
     color: #333;
   }
   p {
-    color: #555;
+    color: #777;
     margin: 0;
   }
 }

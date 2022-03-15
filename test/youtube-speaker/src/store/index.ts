@@ -32,6 +32,8 @@ export default new Vuex.Store({
   },
   actions: {
     setAudioObj ({ state }, videoId) {
+      state.audioObj.pause() // 一時停止
+      state.isPlaying = false
       state.audioObj = new Audio(YoutubeApiService.getAudioUrl(videoId)) // audioオブジェクトを作成
       state.audioObj.addEventListener('ended', () => { // 曲が最後まで終了したら
         state.isPlaying = false
