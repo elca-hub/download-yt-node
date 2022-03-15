@@ -22,6 +22,7 @@ export default class SongInfoTemplate extends Vue {}
 .song-info-main-box {
   width: 100%;
   display: flex;
+  gap: 0 1.2rem;
 }
 
 .song-work {
