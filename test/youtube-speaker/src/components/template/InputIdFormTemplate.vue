@@ -25,7 +25,7 @@ export default class InputIdFormTemplate extends Vue {
     };
     this.$store.commit('pushVideoList', yd);
     this.$store.commit('setVideoId', videoId);
-    if (this.$store.state.isPlaying === false) {
+    if (this.$store.getters.isFirstPlay) {
       this.$store.dispatch('setAudioObj', videoId);
     }
   }

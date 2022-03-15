@@ -17,6 +17,9 @@ export default new Vuex.Store({
     getNowPlayingVideoItem (state) {
       const res = state.nowPlayingSongIndex >= 0 ? state.videoList[state.nowPlayingSongIndex] : null;
       return res
+    },
+    isFirstPlay (state) {
+      return state.nowPlayingSongIndex === -1
     }
   },
   mutations: {
