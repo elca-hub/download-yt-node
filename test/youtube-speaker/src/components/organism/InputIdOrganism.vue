@@ -1,7 +1,7 @@
 <template>
   <div class="input-id-organism">
     <p>聴きたい曲のYouTubeURLを入力</p>
-    <input type="text" v-model="inputUrl" />
+    <input type="text" v-model="inputUrl" :placeholder="randomPlaceholderUrl" />
     <p v-show="isError">入力されたURLが正しくありません</p>
   </div>
 </template>
@@ -25,6 +25,19 @@ export default class HomeView extends Vue {
     }
     this.isError = !match;
   }
+
+  get randomPlaceholderUrl () {
+    /* ワイの好きな曲 */
+    const list = [
+      'https://www.youtube.com/watch?v=UnIhRpIT7nc',
+      'https://www.youtube.com/watch?v=-KQAAeUTOQ4',
+      'https://www.youtube.com/watch?v=EDjYDfRunUk',
+      'https://www.youtube.com/watch?v=ajI7vhqiCAg',
+      'https://www.youtube.com/watch?v=PjG0r-9HQBs'
+    ];
+    const randomIndex = Math.floor(Math.random() * list.length);
+    return list[randomIndex];
+  }
 }
 </script>
 
@@ -33,6 +46,7 @@ export default class HomeView extends Vue {
   padding-left: 10px;
   padding-right: 20px;
   input {
+    padding: 4px;
     width: 100%;
     height: 2.3rem;
     border: solid 2px #c4302b;
@@ -41,8 +55,9 @@ export default class HomeView extends Vue {
   }
   p {
     color: #555;
-    font-size: .8rem;
+    font-size: 1.2rem;
     margin: 0;
+    margin-bottom: 4px;
     padding: 0;
   }
 }
