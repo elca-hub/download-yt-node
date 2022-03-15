@@ -115,13 +115,13 @@ export default class SongWorkOrganism extends Vue {
       }
       .now-play-song-info {
         .now-play-song-title {
-          font-size: 1.2rem;
+          font-size: 1.4rem;
           color: #333;
           margin: 0;
         }
         .now-play-song-author {
           margin: 0;
-          font-size: 1rem;
+          font-size: 1.1rem;
           color: #555;
         }
       }
