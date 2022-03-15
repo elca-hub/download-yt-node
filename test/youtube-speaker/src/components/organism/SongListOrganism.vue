@@ -1,6 +1,8 @@
 <template>
   <div class="song-list-organism">
-    <!-- TODO: 曲リストのヘッダ -->
+    <sub-content-header-molecule>
+      Song List<i class="bi bi-music-note-list" style="margin-left: 10px" />
+    </sub-content-header-molecule>
     <transition-group name="song-list" tag="div">
       <song-list-item-molecule v-for="item in songList" :key="item.id" class="song-list-item" :item="item" />
     </transition-group>
@@ -10,10 +12,12 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 import SongListItemMolecule from '@/components/molecule/SongListItemMolecule.vue';
+import SubContentHeaderMolecule from '@/components/molecule/SubContentHeaderMolecule.vue';
 
 @Component({
   components: {
-    SongListItemMolecule
+    SongListItemMolecule,
+    SubContentHeaderMolecule
   }
 })
 export default class SongListOrganism extends Vue {

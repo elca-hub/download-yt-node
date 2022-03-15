@@ -15,6 +15,7 @@ export default class NowPlaySongHeaderMolecule extends Vue {}
 
 <style lang="scss">
 .now-play-song-header-molecule {
+  text-align: center;
   h2 {
     margin: 0;
     margin-bottom: 8px;

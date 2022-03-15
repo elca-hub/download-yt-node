@@ -1,11 +1,11 @@
 <template>
   <div class="song-work-organism">
+    <sub-content-header-molecule>
+      Now Play<i class="bi bi-play" />
+    </sub-content-header-molecule>
     <transition name="song-work-fade">
       <div class="song-work" v-if="isFade">
         <div class="now-play-song-box">
-          <sub-content-header-molecule>
-            Now Play<i class="bi bi-play" />
-          </sub-content-header-molecule>
           <div class="now-play-song">
             <div class="now-play-song-image">
               <img :src="thumbnailSrc" />
