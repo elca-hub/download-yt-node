@@ -2,7 +2,7 @@
   <transition name="song-work-fade">
     <div class="song-work" v-if="isFade">
       <div class="now-play-song-box">
-        <!-- TODO : タイトルのmodule componentを追加 -->
+        <now-playing-header-molecule />
         <div class="now-play-song">
           <div class="now-play-song-image">
             <img :src="thumbnailSrc" />
@@ -20,8 +20,13 @@
 <script lang="ts">
 import { Component, Vue, Watch } from 'vue-property-decorator';
 import YoutubeApiService from "@/services/YoutubeApiService";
+import  NowPlayingHeaderMolecule  from "@/components/molecule/NowPlayingHeaderMolecule.vue";
 
-@Component
+@Component({
+  components: {
+    NowPlayingHeaderMolecule
+  }
+})
 export default class SongWorkOrganism extends Vue {
   beforeId = '';
   isFade = false;
