@@ -4,7 +4,8 @@
       <i class="bi bi-skip-backward" />
     </div>
     <div class="song-play" @click="$store.dispatch('songControll', !$store.state.isPlaying)">
-      <i class="bi bi-play" /><i class="bi bi-slash-lg" /><i class="bi bi-pause" />
+      <i class="bi bi-play" v-if="!$store.state.isPlaying" />
+      <i class="bi bi-pause" v-else />
     </div>
     <div class="skip-after" @click="$store.dispatch('skipSong', true)">
       <i class="bi bi-skip-forward" />
