@@ -25,5 +25,11 @@ export default class SongBasicControllerOrganism extends Vue {
   display: flex;
   justify-content: space-evenly;
   align-items: center;
+  font-size: 1.6rem;
+  cursor: pointer;
+  transition: opacity .5s;
+  &:hover {
+    opacity: .8;
+  }
 }
 </style>
