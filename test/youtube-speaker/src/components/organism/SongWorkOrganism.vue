@@ -104,6 +104,7 @@ export default class SongWorkOrganism extends Vue {
         }
         .now-play-song-time-bar {
           position: absolute;
+          border-radius: 5px;
           bottom: 5px;
           left: 0;
           height: 5px;
