@@ -1,20 +1,22 @@
 <template>
-  <transition name="song-work-fade">
-    <div class="song-work" v-if="isFade">
-      <div class="now-play-song-box">
-        <now-playing-header-molecule />
-        <div class="now-play-song">
-          <div class="now-play-song-image">
-            <img :src="thumbnailSrc" />
-          </div>
-          <div class="now-play-song-info">
-            <p class="now-play-song-title" v-if="getNowPlayingSongInfoObj.title.length">{{ getNowPlayingSongInfoObj.title }}</p>
-            <p class="now-play-song-author" v-if="getNowPlayingSongInfoObj.author.length">{{ getNowPlayingSongInfoObj.author }}</p>
+  <div class="song-work-organism">
+    <transition name="song-work-fade">
+      <div class="song-work" v-if="isFade">
+        <div class="now-play-song-box">
+          <now-playing-header-molecule />
+          <div class="now-play-song">
+            <div class="now-play-song-image">
+              <img :src="thumbnailSrc" />
+            </div>
+            <div class="now-play-song-info">
+              <p class="now-play-song-title" v-if="getNowPlayingSongInfoObj.title.length">{{ getNowPlayingSongInfoObj.title }}</p>
+              <p class="now-play-song-author" v-if="getNowPlayingSongInfoObj.author.length">{{ getNowPlayingSongInfoObj.author }}</p>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  </transition>
+    </transition>
+  </div>
 </template>
 
 <script lang="ts">
