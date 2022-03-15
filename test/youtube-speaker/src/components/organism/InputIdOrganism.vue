@@ -37,10 +37,7 @@ export default class HomeView extends Vue {
     height: 2.3rem;
     border: solid 2px #c4302b;
     font-size: 1.2rem;
-    &::placeholder {
-      font-size: 1.2rem;
-      font-family: 'Zen Maru Gothic', sans-serif;
-    }
+    font-family: 'Zen Maru Gothic', sans-serif;
   }
   p {
     color: #555;
