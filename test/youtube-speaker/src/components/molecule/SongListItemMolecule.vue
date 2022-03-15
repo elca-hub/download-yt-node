@@ -39,7 +39,7 @@ export default class SongListItemMolecule extends Vue {
   }
   h2 {
     font-size: 1.2em;
-    margin-bottom: 10px;
+    margin: 0;
     color: #333;
   }
   p {
