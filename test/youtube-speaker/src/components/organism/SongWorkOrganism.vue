@@ -36,13 +36,16 @@ export default class SongWorkOrganism extends Vue {
   @Watch('$store.getters.getNowPlayingVideoItem')
   public fadeAnimation () {
     const nowPlayingSongItem = this.$store.getters.getNowPlayingVideoItem;
-    if (nowPlayingSongItem.id === this.$store.state.videoId) {
-    this.isFade = false;
-      setTimeout(() => {
-        this.isFade = true;
-      }, 250);
+    if (nowPlayingSongItem !== null) {
+      if (nowPlayingSongItem.id === this.$store.state.videoId || this.beforeId !== nowPlayingSongItem.id) {
+        this.isFade = false;
+        setTimeout(() => {
+          this.isFade = true;
+        }, 250);
+      }
+      this.beforeId = nowPlayingSongItem.id;
     }
-    this.beforeId = nowPlayingSongItem.id;
+    console.log(nowPlayingSongItem);
   }
 
   get thumbnailSrc () {

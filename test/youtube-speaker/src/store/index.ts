@@ -44,8 +44,19 @@ export default new Vuex.Store({
       state.audioObj.addEventListener('pause', () => { // 曲が一時停止されたら
         state.isPlaying = false
       })
-      state.nowPlayingSongIndex++
+      state.nowPlayingSongIndex = state.videoList.findIndex(item => item.id === videoId)
       if (!state.isPlaying) state.audioObj.play()
+    },
+    songControll ({ state }, isPlay:boolean) {
+      if (isPlay) state.audioObj.play()
+      else state.audioObj.pause()
+    },
+    skipSong ({ state, dispatch }, isNext: boolean) {
+      if (isNext) state.nowPlayingSongIndex++
+      else state.nowPlayingSongIndex--
+      console.log(state.nowPlayingSongIndex)
+      const playVideoId = state.videoList[state.nowPlayingSongIndex].id
+      dispatch('setAudioObj', playVideoId)
     }
   },
   modules: {
