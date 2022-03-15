@@ -23,19 +23,20 @@ export default class SongListItemMolecule extends Vue {
 <style lang="scss" scoped>
 .song-list-item-molecule {
   cursor: pointer;
+  transition: all .5s ease-in-out;
   &:hover {
     opacity: .8;
-    transform: scale(0.96);
+    transform: scale(0.97);
   }
   h2 {
-    font-size: 1.7em;
-    margin: 0;
+    font-size: 1.2em;
     margin-bottom: 10px;
     color: #333;
   }
   p {
     color: #777;
     margin: 0;
+    text-align: right;
   }
 }
 </style>
