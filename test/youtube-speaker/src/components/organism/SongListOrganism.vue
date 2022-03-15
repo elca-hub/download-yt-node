@@ -2,17 +2,20 @@
   <div class="song-list-organism">
     <!-- TODO: 曲リストのヘッダ -->
     <transition-group name="song-list" tag="div">
-      <span v-for="item in songList" :key="item.id" class="song-list-item">
-        {{ item.title }}
-      </span>
+      <song-list-item-molecule v-for="item in songList" :key="item.id" class="song-list-item" :item="item" />
     </transition-group>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
+import SongListItemMolecule from '@/components/molecule/SongListItemMolecule.vue';
 
-@Component
+@Component({
+  components: {
+    SongListItemMolecule
+  }
+})
 export default class SongListOrganism extends Vue {
   get songList () {
     return this.$store.state.videoList;
