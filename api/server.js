@@ -37,7 +37,7 @@ const server = http.createServer(async (req, res) => {
         format: 'mp3',
       });
       audio.pipe(res);
-    } else if (paramsArray.urlParams[2] === 'info') {
+    } else if (paramsArray.urlParams[2] === 'info') { // 曲の情報を取得するuri
       ytdl.getInfo(path).then((info) => {
         res.setHeader('Content-Type', 'application/json');
         const resData = {
