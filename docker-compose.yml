@@ -6,7 +6,7 @@ services:
       context: api
     ports:
       - "3000:3030"
-  vue:
+  app:
     build:
       context: app
     stdin_open: true
