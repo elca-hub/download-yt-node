@@ -11,8 +11,6 @@ services:
   app:
     build:
       context: app
-    stdin_open: true
-    tty: true
     working_dir: /app
     command: "yarn serve"
     ports:
