@@ -3,6 +3,8 @@ import Vuex from 'vuex'
 import IYoutubeData from '@/interfaces/IYoutubeData'
 import YoutubeApiService from '@/services/YoutubeApiService'
 
+import createPersistedState from 'vuex-persistedstate'
+
 Vue.use(Vuex)
 
 export default new Vuex.Store({
@@ -49,7 +51,7 @@ export default new Vuex.Store({
       clearInterval(state.audioTimer)
     },
     setAudioObj ({ state, dispatch }, videoId) {
-      state.audioObj.pause() // 一時停止
+      if (state.audioObj.src !== undefined) state.audioObj.pause()
       state.isPlaying = false
       state.audioObj = new Audio(YoutubeApiService.getAudioUrl(videoId)) // audioオブジェクトを作成
       state.audioObj.addEventListener('ended', () => { // 曲が最後まで終了したら
@@ -102,5 +104,6 @@ export default new Vuex.Store({
     }
   },
   modules: {
-  }
+  },
+  plugins: [createPersistedState()]
 })
