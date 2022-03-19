@@ -9,6 +9,7 @@ import { Component, Vue } from 'vue-property-decorator';
 import InputIdOrganism from '@/components/organism/InputIdOrganism.vue';
 import YoutubeApiService from "@/services/YoutubeApiService";
 import IYoutubeData from "@/interfaces/IYoutubeData";
+import IDatabaseData from "@/interfaces/IDatabaseData";
 
 @Component({
   components: {
@@ -28,6 +29,13 @@ export default class InputIdFormTemplate extends Vue {
     if (this.$store.getters.isFirstPlay) {
       this.$store.dispatch('setAudioObj', videoId);
     }
+    const insertData: IDatabaseData = {
+      youtubeId: videoId,
+      title: data.data.title,
+      author: data.data.author,
+      listId: this.$store.state.listId
+    }
+    await YoutubeApiService.insertSong(insertData);
   }
 }
 </script>
