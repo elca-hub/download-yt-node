@@ -1,0 +1,1 @@
+mysql -u root --password=root < "/docker-entrypoint-initdb.d/001-create-tables.sql"

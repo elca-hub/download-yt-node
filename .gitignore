@@ -5,6 +5,7 @@ test.txt
 .DS_Store
 node_modules
 dist
+db/data
 
 backup
 
