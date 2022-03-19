@@ -110,6 +110,7 @@ export default new Vuex.Store({
         state.nowPlayingSongIndex = -1
         state.audioObj.pause()
         state.audioObj.currentTime = 0
+        dispatch('stopTimer')
       } else {
         const playVideoId = state.videoList[state.nowPlayingSongIndex].id
         dispatch('setAudioObj', playVideoId)
