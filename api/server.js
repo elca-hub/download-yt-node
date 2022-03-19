@@ -16,7 +16,7 @@ const changeToCamelCase = (str) => {
   });
 }
 
-app.get('/api/song/:youtubeId/audio', function (req, res) {
+app.get('/song/:youtubeId/audio', (req, res) => {
   const youtubeId = req.params.youtubeId;
   const path = `https://www.youtube.com/watch?v=${youtubeId}`;
   res.setHeader('Content-Type', 'audio/mpeg');
@@ -28,7 +28,7 @@ app.get('/api/song/:youtubeId/audio', function (req, res) {
   audio.pipe(res);
 })
 
-app.get('/api/song/:youtubeId/info', function (req, res) {
+app.get('/song/:youtubeId/info', (req, res) => {
   const youtubeId = req.params.youtubeId;
   const path = `https://www.youtube.com/watch?v=${youtubeId}`;
   ytdl.getInfo(path).then((info) => {
@@ -41,7 +41,7 @@ app.get('/api/song/:youtubeId/info', function (req, res) {
   });
 })
 
-app.get('/api/sql/songs', async function (req, res) {
+app.get('/sql/songs', async (req, res) => {
   const db = new sql.Sql();
   db.connect();
   const result = await db.getSongsData();
