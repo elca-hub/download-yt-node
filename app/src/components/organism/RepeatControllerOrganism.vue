@@ -4,6 +4,9 @@
       <i class="bi bi-arrow-repeat" @click="changeRepeatType()" />
       <p v-if="nowRepeatType === 'one'">1</p>
     </div>
+    <div class="remove-list" @click="removeSong()">
+      <i class="bi bi-folder-x" />
+    </div>
   </div>
 </template>
 
@@ -14,6 +17,11 @@ import { Component, Vue } from 'vue-property-decorator';
 export default class RepeatController extends Vue {
   public changeRepeatType() {
     this.$store.dispatch('changeRepeatType');
+  }
+
+  public removeSong() {
+    console.log('ここ通過');
+    this.$store.dispatch('removeSongList');
   }
 
   get nowRepeatType () {

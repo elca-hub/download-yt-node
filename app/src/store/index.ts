@@ -101,9 +101,26 @@ export default new Vuex.Store({
     changeRepeatType ({ state }) {
       state.repeatTypeObj.index++
       if (state.repeatTypeObj.index >= state.repeatTypeObj.list.length) state.repeatTypeObj.index = 0
+    },
+    removeSongList ({ state, dispatch }) {
+      const nowPlayingSongIndex = state.nowPlayingSongIndex
+      if (nowPlayingSongIndex === -1) return
+      state.videoList.splice(nowPlayingSongIndex, 1)
+      if (state.videoList.length <= state.nowPlayingSongIndex) state.nowPlayingSongIndex = state.videoList.length - 1
+      if (state.videoList.length === 0) {
+        state.nowPlayingSongIndex = -1
+      } else {
+        const playVideoId = state.videoList[state.nowPlayingSongIndex].id
+        dispatch('setAudioObj', playVideoId)
+      }
     }
   },
   modules: {
   },
-  plugins: [createPersistedState()]
+  plugins: [
+    createPersistedState({
+      key: 'yt-speaker',
+      paths: ['videoList', 'repeatTypeObj']
+    })
+  ]
 })
