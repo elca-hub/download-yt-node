@@ -19,7 +19,8 @@ export default new Vuex.Store({
       index: 0
     },
     audioNowTime: 0, // 現在の再生時間
-    audioTimer: 0
+    audioTimer: 0,
+    listId: -1
   },
   getters: {
     getNowPlayingVideoItem (state) {
@@ -123,7 +124,7 @@ export default new Vuex.Store({
   plugins: [
     createPersistedState({
       key: 'yt-speaker',
-      paths: ['videoList', 'repeatTypeObj']
+      paths: ['repeatTypeObj']
     })
   ]
 })
