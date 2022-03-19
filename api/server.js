@@ -1,6 +1,6 @@
 const http = require('http');
 const ytdl = require('ytdl-core');
-const mysql = require('mysql');
+const sql = require('./modules/sql/sql');
 
 const getUrlParametrs = (url) => {
   const urlParams = url.split('/');
