@@ -1,26 +1,14 @@
-const http = require('http');
 const ytdl = require('ytdl-core');
 const sql = require('./modules/sql/sql');
+const express = require('express')
+const app = express()
+const bodyParser = require('body-parser');
+const cors = require('cors');
 
-const getUrlParametrs = (url) => {
-  const urlParams = url.split('/');
-  urlParams.shift(); // /ex の時、['', 'ex']となるので先頭の空文字を削除
-  urlParams[urlParams.length - 1] = urlParams[urlParams.length - 1].split('?')[0]; // ?以降を削除
-
-  // urlの中に?があれば
-  let params = {};
-  if (url.includes('?')) {
-    const queryParam = url.split('?')[1];
-    const queryParams = queryParam.split('&');
-    queryParams.forEach((param) => {
-      const [key, value] = param.split('=');
-      params[key] = value;
-    });
-  } else {
-    params = {};
-  }
-  return { urlParams: urlParams, queryParams: params };
-}
+const port = 3030;
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+app.use(cors());
 
 const changeToCamelCase = (str) => {
   return str.replace(/[-_]([a-z])/g, (g) => {
@@ -28,61 +16,46 @@ const changeToCamelCase = (str) => {
   });
 }
 
-const server = http.createServer(async (req, res) => {
-  res.statusCode = 200;
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  paramsArray = getUrlParametrs(req.url);
-  if (req.url && paramsArray.urlParams[0] === 'get') { /// youtubeの情報をゲットするuri
-    youtubeId = paramsArray.urlParams[1];
-    const path = `https://www.youtube.com/watch?v=${youtubeId}`;
-    if (paramsArray.urlParams[2] === 'audio') { // audioを取得するuri
-      res.setHeader('Content-Type', 'audio/mpeg');
-      const audio = ytdl(path, {
-        filter: 'audioonly',
-        quality: 'highestaudio',
-        format: 'mp3',
-      });
-      audio.pipe(res);
-    } else if (paramsArray.urlParams[2] === 'info') { // 曲の情報を取得するuri
-      ytdl.getInfo(path).then((info) => {
-        res.setHeader('Content-Type', 'application/json');
-        const resData = {
-          title: info.player_response.videoDetails.title,
-          author: info.player_response.videoDetails.author
-        };
-        res.end(JSON.stringify(resData));
-      });
-    }
-  } else if (req.url && paramsArray.urlParams[0] === 'sql') { // sql関係を実行するuri
-    const db = new sql.Sql();
-    db.connect();
-    if (paramsArray.urlParams[1] === 'insert') {
-      const mock = {
-        youtubeId: 'korehatestu',
-        title: 'test',
-        author: 'mockmock',
-        listId: -1
-      };
-      await db.insertSongData(mock.youtubeId, mock.listId, mock.title, mock.author);
-      db.end();
-      res.end('insert');
-    } else if (paramsArray.urlParams[1] === 'songs') {
-      const result = await db.getSongsData();
-      db.end();
-      // resultの命名をcamelCaseに変換する
-      const resData = result.map((item) => {
-        const resItem = {};
-        Object.keys(item).forEach((key) => {
-          resItem[changeToCamelCase(key)] = item[key];
-        });
-        return resItem;
-      });
-      res.setHeader('Content-Type', 'application/json');
-      res.end(JSON.stringify(resData));
-    }
-  }
-});
+app.get('/api/song/:youtubeId/audio', function (req, res) {
+  const youtubeId = req.params.youtubeId;
+  const path = `https://www.youtube.com/watch?v=${youtubeId}`;
+  res.setHeader('Content-Type', 'audio/mpeg');
+  const audio = ytdl(path, {
+    filter: 'audioonly',
+    quality: 'highestaudio',
+    format: 'mp3',
+  });
+  audio.pipe(res);
+})
 
-server.listen(3030, () => {
-  console.log('Server is running');
-});
+app.get('/api/song/:youtubeId/info', function (req, res) {
+  const youtubeId = req.params.youtubeId;
+  const path = `https://www.youtube.com/watch?v=${youtubeId}`;
+  ytdl.getInfo(path).then((info) => {
+    res.setHeader('Content-Type', 'application/json');
+    const resData = {
+      title: info.player_response.videoDetails.title,
+      author: info.player_response.videoDetails.author
+    };
+    res.send(JSON.stringify(resData));
+  });
+})
+
+app.get('/api/sql/songs', async function (req, res) {
+  const db = new sql.Sql();
+  db.connect();
+  const result = await db.getSongsData();
+  db.end();
+  // resultの命名をcamelCaseに変換する
+  const resData = result.map((item) => {
+    const resItem = {};
+    Object.keys(item).forEach((key) => {
+      resItem[changeToCamelCase(key)] = item[key];
+    });
+    return resItem;
+  });
+  res.setHeader('Content-Type', 'application/json');
+  res.send(JSON.stringify(resData));
+})
+
+app.listen(port, () => console.log(`Example app listening on port ${port}!`))
