@@ -20,12 +20,10 @@ export default class RepeatController extends Vue {
   }
 
   public removeSong() {
-    console.log('ここ通過');
     this.$store.dispatch('removeSongList');
   }
 
   get nowRepeatType () {
-    console.log(this.$store.getters.getNowRepeatType);
     return this.$store.getters.getNowRepeatType;
   }
 }
