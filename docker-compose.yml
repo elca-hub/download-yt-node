@@ -6,6 +6,8 @@ services:
       context: api
     ports:
       - "3000:3030"
+    depends_on:
+      - db
   app:
     build:
       context: app

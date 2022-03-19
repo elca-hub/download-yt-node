@@ -1,7 +1,6 @@
 const http = require('http');
-const youtubeUrl = '';
 const ytdl = require('ytdl-core');
-const fs = require('fs');
+const mysql = require('mysql');
 
 const getUrlParametrs = (url) => {
   const urlParams = url.split('/');
@@ -48,6 +47,19 @@ const server = http.createServer((req, res) => {
         res.end(JSON.stringify(resData));
       });
     }
+  } else if (req.url && paramsArray.urlParams[0] === 'sql') {
+    const connection = mysql.createConnection({
+     host: 'db',
+     user: 'root',
+     password: 'root',
+     database: 'yt_song'
+    });
+    connection.connect((err) => {
+      if (err) {
+       res.end('error connecting: ' + err.stack);
+       return;
+      }
+    });
   }
 });
 
