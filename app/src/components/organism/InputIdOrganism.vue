@@ -8,6 +8,7 @@
 
 <script lang="ts">
 import { Component, Vue, Watch } from 'vue-property-decorator';
+import IYoutubeData from '@/interfaces/IYoutubeData';
 
 @Component
 export default class HomeView extends Vue {
@@ -16,14 +17,19 @@ export default class HomeView extends Vue {
 
   @Watch('inputUrl')
   public onInputUrl() {
+    this.isError = false;
     const url = this.inputUrl;
     const regex = /^https:\/\/www\.youtube\.com\/watch\?v=([a-zA-Z0-9_-]+)$/;
     const match = url.match(regex);
     if (match) {
       const videoId = match[1];
-      this.$emit('input-videoId', videoId);
+      const songList = this.$store.state.videoList;
+      const isExist = songList.some((song:IYoutubeData) => song.id === videoId);
+      if (isExist) this.isError = true;
+      else this.$emit('input-videoId', videoId);
+    } else {
+      this.isError = true;
     }
-    this.isError = !match;
   }
 
   get randomPlaceholderUrl () {
