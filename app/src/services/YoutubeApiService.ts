@@ -13,5 +13,9 @@ class YoutubeApiService {
   getThumbnailUrl (videoId: string): string {
     return `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`;
   }
+
+  getSongs(): Promise<any> {
+    return http.post("/sql/songs");
+  }
 }
 export default new YoutubeApiService();

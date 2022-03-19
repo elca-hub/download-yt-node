@@ -51,4 +51,17 @@ exports.Sql = class Sql {
       });
     });
   }
+
+  async getSongsData () {
+    const sql = `SELECT s.youtube_id, l.name as list_name, s.title, s.author, s.sort_index FROM songs s INNER JOIN lists l ON s.list_id = l.list_id`;
+    return new Promise((resolve, reject) => {
+      this.connection.query(sql, (err, result) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(result);
+        }
+      });
+    });
+  }
 }

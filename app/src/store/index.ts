@@ -39,6 +39,9 @@ export default new Vuex.Store({
     },
     pushVideoList(state, data: IYoutubeData) {
       state.videoList.push(data)
+    },
+    setVideoList (state, data: IYoutubeData[]) {
+      state.videoList = data
     }
   },
   actions: {

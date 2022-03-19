@@ -22,6 +22,12 @@ const getUrlParametrs = (url) => {
   return { urlParams: urlParams, queryParams: params };
 }
 
+const changeToCamelCase = (str) => {
+  return str.replace(/[-_]([a-z])/g, (g) => {
+    return g[1].toUpperCase();
+  });
+}
+
 const server = http.createServer(async (req, res) => {
   res.statusCode = 200;
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -59,7 +65,20 @@ const server = http.createServer(async (req, res) => {
       };
       await db.insertSongData(mock.youtubeId, mock.listId, mock.title, mock.author);
       db.end();
-      res.end('inserted');
+      res.end('insert');
+    } else if (paramsArray.urlParams[1] === 'songs') {
+      const result = await db.getSongsData();
+      db.end();
+      // resultの命名をcamelCaseに変換する
+      const resData = result.map((item) => {
+        const resItem = {};
+        Object.keys(item).forEach((key) => {
+          resItem[changeToCamelCase(key)] = item[key];
+        });
+        return resItem;
+      });
+      res.setHeader('Content-Type', 'application/json');
+      res.end(JSON.stringify(resData));
     }
   }
 });
