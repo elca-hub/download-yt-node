@@ -36,7 +36,7 @@ export default class HomeView extends Vue {
   }
 
   public async created () {
-    const songData = await YoutubeApiService.getSongs();
+    const songData = await YoutubeApiService.getSongs().then(res => res.data);
     const videoList = [];
     for (const song of songData) {
       const appendData: IYoutubeData = {
