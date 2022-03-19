@@ -1,10 +1,10 @@
 # YouTube Speaker(仮)
 
-## distフォルダの生成
+## 起動
 ```bash
-$ docker-compose up vue -d
+$ docker-compose up app
 ```
+[localhost:8080](http://localhost:8080)へアクセス
 
-localhost:8080 -> webサーバ
-
-localhost:3000 -> APIサーバ(node.js)
+## 起動(vueをインストしている人)
+vueがある人はbuildせずに、appフォルダ内へ移動し`yarn build`をして、`docker-compose up test`をすることで、nginxで起動することができる
