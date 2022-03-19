@@ -58,6 +58,7 @@ const server = http.createServer(async (req, res) => {
         listId: -1
       };
       await db.insertSongData(mock.youtubeId, mock.listId, mock.title, mock.author);
+      db.end();
       res.end('inserted');
     }
   }
