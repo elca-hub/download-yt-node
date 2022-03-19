@@ -22,7 +22,8 @@ export default class InputIdFormTemplate extends Vue {
     const yd:IYoutubeData = {
       id: videoId,
       title: data.data.title,
-      author: data.data.author
+      author: data.data.author,
+      thumbnailUrl: data.data.thumbnailUrl
     };
     this.$store.commit('pushVideoList', yd);
     this.$store.commit('setVideoId', videoId);
@@ -33,7 +34,8 @@ export default class InputIdFormTemplate extends Vue {
       youtubeId: videoId,
       title: data.data.title,
       author: data.data.author,
-      listId: this.$store.state.listId
+      listId: this.$store.state.listId,
+      thumbnailUrl: data.data.thumbnailUrl
     }
     await YoutubeApiService.insertSong(insertData);
   }

@@ -28,7 +28,6 @@
 
 <script lang="ts">
 import { Component, Vue, Watch } from 'vue-property-decorator';
-import YoutubeApiService from "@/services/YoutubeApiService";
 import  SubContentHeaderMolecule  from "@/components/molecule/SubContentHeaderMolecule.vue";
 
 @Component({
@@ -47,15 +46,17 @@ export default class SongWorkOrganism extends Vue {
   @Watch('$store.getters.getNowPlayingVideoItem')
   public fadeAnimation () {
     const nowPlayingSongItem = this.$store.getters.getNowPlayingVideoItem;
-    this.isFade = false;
-    if (nowPlayingSongItem !== null) {
-      if (nowPlayingSongItem.id === this.$store.state.videoId || this.beforeId !== nowPlayingSongItem.id) {
+    if (nowPlayingSongItem === null) {
+      this.isFade = false
+    } else if (nowPlayingSongItem.id === this.$store.state.videoId || this.beforeId !== nowPlayingSongItem.id) {
+      this.isFade = false
+      if (nowPlayingSongItem !== null) {
         this.$store.state.audioObj.addEventListener('loadeddata', () => {
           if (this.$store.state.videoList.length !== 0) this.isFade = true;
         });
       }
-      this.beforeId = nowPlayingSongItem.id;
     }
+    if (nowPlayingSongItem !== null) this.beforeId = nowPlayingSongItem.id;
   }
 
   @Watch('$store.state.audioNowTime')
@@ -73,7 +74,7 @@ export default class SongWorkOrganism extends Vue {
   get thumbnailSrc () {
     const nowPlayingSongItem = this.$store.getters.getNowPlayingVideoItem;
     if (nowPlayingSongItem === null) return '#';
-    else return YoutubeApiService.getThumbnailUrl(nowPlayingSongItem.id);
+    else return nowPlayingSongItem.thumbnailUrl;
   }
   get getNowPlayingSongInfoObj () {
     const nowPlayingSongItem = this.$store.getters.getNowPlayingVideoItem;

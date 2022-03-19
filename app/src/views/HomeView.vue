@@ -42,7 +42,8 @@ export default class HomeView extends Vue {
       const appendData: IYoutubeData = {
         id: song.youtubeId,
         title: song.title,
-        author: song.author
+        author: song.author,
+        thumbnailUrl: song.thumbnailUrl
       };
       videoList.push(appendData);
     }

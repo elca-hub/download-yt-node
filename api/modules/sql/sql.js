@@ -38,9 +38,9 @@ exports.Sql = class Sql {
   }
 
   /* 曲のデータを追加 */
-  async insertSongData (youtubeId, listId, title, author) {
+  async insertSongData (youtubeId, listId, title, author, thumbnailUrl) {
     const maxIndex = await this.getMaxSortIndex(listId);
-    const sql = `INSERT INTO songs (youtube_id, list_id, title, author, sort_index) VALUES ('${youtubeId}', ${listId}, '${title}', '${author}', ${maxIndex + 1})`;
+    const sql = `INSERT INTO songs (youtube_id, list_id, title, author, thumbnail_url, sort_index) VALUES ('${youtubeId}', ${listId}, '${title}', '${author}', '${thumbnailUrl}', ${maxIndex + 1})`;
     return new Promise((resolve, reject) => {
       this.connection.query(sql, (err, result) => {
         if (err) {
@@ -53,7 +53,7 @@ exports.Sql = class Sql {
   }
 
   async getSongsData () {
-    const sql = `SELECT s.youtube_id, l.name as list_name, s.title, s.author, s.sort_index FROM songs s INNER JOIN lists l ON s.list_id = l.list_id`;
+    const sql = `SELECT s.youtube_id, l.name as list_name, s.title, s.author, s.thumbnail_url, s.sort_index FROM songs s INNER JOIN lists l ON s.list_id = l.list_id`;
     return new Promise((resolve, reject) => {
       this.connection.query(sql, (err, result) => {
         if (err) {

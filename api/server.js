@@ -32,10 +32,12 @@ app.get('/song/:youtubeId/info', (req, res) => {
   const youtubeId = req.params.youtubeId;
   const path = `https://www.youtube.com/watch?v=${youtubeId}`;
   ytdl.getInfo(path).then((info) => {
+    const choiceThumbnail = info.player_response.videoDetails.thumbnail.thumbnails[info.player_response.videoDetails.thumbnail.thumbnails.length - 1];
     res.setHeader('Content-Type', 'application/json');
     const resData = {
       title: info.player_response.videoDetails.title,
-      author: info.player_response.videoDetails.author
+      author: info.player_response.videoDetails.author,
+      thumbnailUrl: choiceThumbnail.url
     };
     res.send(JSON.stringify(resData));
   });
@@ -62,7 +64,7 @@ app.post('/sql/insert', async (req, res) => {
   const postData = req.body;
   const db = new sql.Sql();
   db.connect();
-  await db.insertSongData(postData.youtubeId, postData.listId, postData.title, postData.author);
+  await db.insertSongData(postData.youtubeId, postData.listId, postData.title, postData.author, postData.thumbnailUrl);
   db.end();
   res.send('success');
 })

@@ -12,6 +12,7 @@ create table IF not exists `songs`
   `list_id` VARCHAR (200) NOT NULL,
   `title` VARCHAR(100) NOT NULL,
   `author` VARCHAR(100) NOT NULL,
+  `thumbnail_url` VARCHAR(200) NOT NULL,
   `sort_index` INT(10) NOT NULL,
   PRIMARY KEY (`song_id`)
 ) DEFAULT CHARSET=utf8 COLLATE=utf8_bin;

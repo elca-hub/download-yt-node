@@ -66,7 +66,7 @@ export default class HomeView extends Vue {
     margin-bottom: 4px;
     padding: 0;
   }
-  error {
+  .error {
     font-size: .9rem;
     color: red;
   }

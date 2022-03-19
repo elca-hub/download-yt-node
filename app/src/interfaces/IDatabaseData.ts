@@ -3,4 +3,5 @@ export default interface IYoutubeData {
   title: string;
   author: string;
   listId: number;
+  thumbnailUrl: string;
 }
