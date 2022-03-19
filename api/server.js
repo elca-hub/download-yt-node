@@ -27,7 +27,6 @@ const server = http.createServer((req, res) => {
   res.statusCode = 200;
   res.setHeader('Access-Control-Allow-Origin', '*');
   paramsArray = getUrlParametrs(req.url);
-  console.log(paramsArray);
   youtubeId = paramsArray.urlParams[1];
   const path = `https://www.youtube.com/watch?v=${youtubeId}`;
   if (req.url && paramsArray.urlParams[0] === 'get') { /// youtubeの情報をゲットするuri
