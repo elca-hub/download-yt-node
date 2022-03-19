@@ -58,4 +58,13 @@ app.get('/sql/songs', async (req, res) => {
   res.send(JSON.stringify(resData));
 })
 
+app.post('/sql/insert', async (req, res) => {
+  const postData = req.body;
+  const db = new sql.Sql();
+  db.connect();
+  await db.insertSongData(postData.youtubeId, postData.listId, postData.title, postData.author);
+  db.end();
+  res.send('success');
+})
+
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))
