@@ -64,4 +64,17 @@ exports.Sql = class Sql {
       });
     });
   }
+
+  async deleteSongData (youtubeId) {
+    const sql = `DELETE FROM songs WHERE youtube_id = '${youtubeId}'`;
+    return new Promise((resolve, reject) => {
+      this.connection.query(sql, (err, result) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(result);
+        }
+      });
+    });
+  }
 }

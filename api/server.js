@@ -67,4 +67,13 @@ app.post('/sql/insert', async (req, res) => {
   res.send('success');
 })
 
+app.delete('/sql/delete/:youtubeId', async (req, res) => {
+  const youtubeId = req.params.youtubeId;
+  const db = new sql.Sql();
+  db.connect();
+  await db.deleteSongData(youtubeId);
+  db.end();
+  res.send('success');
+})
+
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))

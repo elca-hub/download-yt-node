@@ -12,6 +12,7 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
+import YoutubeApiService from "@/services/YoutubeApiService";
 
 @Component
 export default class RepeatController extends Vue {
@@ -20,7 +21,11 @@ export default class RepeatController extends Vue {
   }
 
   public removeSong() {
-    this.$store.dispatch('removeSongList');
+    if (this.$store.state.nowPlayingSongIndex !== -1) {
+      /* ATTENTION: 先にAPIを処理する */
+      YoutubeApiService.removeSong(this.$store.state.videoList[this.$store.state.nowPlayingSongIndex].id);
+      this.$store.dispatch('removeSongList');
+    }
   }
 
   get nowRepeatType () {

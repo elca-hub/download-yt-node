@@ -79,25 +79,19 @@ export default new Vuex.Store({
         dispatch('stopTimer') // タイマーを停止
       })
       state.nowPlayingSongIndex = state.videoList.findIndex(item => item.id === videoId)
-      if (!state.isPlaying) state.audioObj.play()
+      if (!state.isPlaying || state.nowPlayingSongIndex !== -1) state.audioObj.play()
     },
     songControll ({ state }, isPlay:boolean) {
       if (isPlay) state.audioObj.play()
       else state.audioObj.pause()
     },
     skipSong ({ state, dispatch }, isNext: boolean) {
-      if (isNext) {
-        if (state.nowPlayingSongIndex < state.videoList.length - 1) {
-          state.nowPlayingSongIndex++
-        } else {
-          state.nowPlayingSongIndex = 0
-        }
-      } else {
-        if (state.nowPlayingSongIndex > 0) {
-          state.nowPlayingSongIndex--
-        } else {
-          state.nowPlayingSongIndex = state.videoList.length - 1
-        }
+      if (isNext) { // 次の曲へ進むなら
+        if (state.nowPlayingSongIndex < state.videoList.length - 1) state.nowPlayingSongIndex++
+        else state.nowPlayingSongIndex = 0
+      } else { // 前の曲へ戻るなら
+        if (state.nowPlayingSongIndex > 0) state.nowPlayingSongIndex--
+        else state.nowPlayingSongIndex = state.videoList.length - 1
       }
       const playVideoId = state.videoList[state.nowPlayingSongIndex].id
       dispatch('setAudioObj', playVideoId)
@@ -112,7 +106,10 @@ export default new Vuex.Store({
       state.videoList.splice(nowPlayingSongIndex, 1)
       if (state.videoList.length <= state.nowPlayingSongIndex) state.nowPlayingSongIndex = state.videoList.length - 1
       if (state.videoList.length === 0) {
+        // 初期化
         state.nowPlayingSongIndex = -1
+        state.audioObj.pause()
+        state.audioObj.currentTime = 0
       } else {
         const playVideoId = state.videoList[state.nowPlayingSongIndex].id
         dispatch('setAudioObj', playVideoId)

@@ -22,5 +22,9 @@ class YoutubeApiService {
   insertSong (song: IDatabaseData): Promise<any> {
     return http.post("/sql/insert", song);
   }
+
+  removeSong (youtubeId: string): Promise<any> {
+    return http.delete(`/sql/delete/${youtubeId}`);
+  }
 }
 export default new YoutubeApiService();
