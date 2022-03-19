@@ -22,7 +22,7 @@ const getUrlParametrs = (url) => {
   return { urlParams: urlParams, queryParams: params };
 }
 
-const server = http.createServer((req, res) => {
+const server = http.createServer(async (req, res) => {
   res.statusCode = 200;
   res.setHeader('Access-Control-Allow-Origin', '*');
   paramsArray = getUrlParametrs(req.url);
