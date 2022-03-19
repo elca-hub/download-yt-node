@@ -13,4 +13,5 @@ $ docker-compose up app
 ```
 
 localhost:8080 -> webサーバ(nginx)
+
 localhost:3000 -> APIサーバ(node.js)
