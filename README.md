@@ -1,4 +1,4 @@
-# YouTube Speaker(仮)
+# YouTube Speaker
 
 ## What's YouTube Speacker?
 このアプリはYouTube上の動画をmp3再生するwebアプリケーションです。
