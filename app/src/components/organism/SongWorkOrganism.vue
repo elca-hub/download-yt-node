@@ -51,7 +51,7 @@ export default class SongWorkOrganism extends Vue {
     if (nowPlayingSongItem !== null) {
       if (nowPlayingSongItem.id === this.$store.state.videoId || this.beforeId !== nowPlayingSongItem.id) {
         this.$store.state.audioObj.addEventListener('loadeddata', () => {
-          if (nowPlayingSongItem !== null) this.isFade = true;
+          if (this.$store.state.videoList.length !== 0) this.isFade = true;
         });
       }
       this.beforeId = nowPlayingSongItem.id;
