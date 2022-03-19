@@ -26,9 +26,9 @@ const server = http.createServer(async (req, res) => {
   res.statusCode = 200;
   res.setHeader('Access-Control-Allow-Origin', '*');
   paramsArray = getUrlParametrs(req.url);
-  youtubeId = paramsArray.urlParams[1];
-  const path = `https://www.youtube.com/watch?v=${youtubeId}`;
   if (req.url && paramsArray.urlParams[0] === 'get') { /// youtubeの情報をゲットするuri
+    youtubeId = paramsArray.urlParams[1];
+    const path = `https://www.youtube.com/watch?v=${youtubeId}`;
     if (paramsArray.urlParams[2] === 'audio') { // audioを取得するuri
       res.setHeader('Content-Type', 'audio/mpeg');
       const audio = ytdl(path, {
