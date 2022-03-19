@@ -47,19 +47,19 @@ const server = http.createServer(async (req, res) => {
         res.end(JSON.stringify(resData));
       });
     }
-  } else if (req.url && paramsArray.urlParams[0] === 'sql') {
-    const connection = mysql.createConnection({
-     host: 'db',
-     user: 'root',
-     password: 'root',
-     database: 'yt_song'
-    });
-    connection.connect((err) => {
-      if (err) {
-       res.end('error connecting: ' + err.stack);
-       return;
-      }
-    });
+  } else if (req.url && paramsArray.urlParams[0] === 'sql') { // sql関係を実行するuri
+    const db = new sql.Sql();
+    db.connect();
+    if (paramsArray.urlParams[1] === 'insert') {
+      const mock = {
+        youtubeId: 'korehatestu',
+        title: 'test',
+        author: 'mockmock',
+        listId: -1
+      };
+      await db.insertSongData(mock.youtubeId, mock.listId, mock.title, mock.author);
+      res.end('inserted');
+    }
   }
 });
 
