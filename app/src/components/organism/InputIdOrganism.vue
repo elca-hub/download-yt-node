@@ -2,7 +2,7 @@
   <div class="input-id-organism">
     <p>聴きたい曲のYouTubeURLを入力</p>
     <input type="text" v-model="inputUrl" :placeholder="randomPlaceholderUrl" />
-    <p v-show="isError">入力されたURLが正しくありません</p>
+    <p v-show="isError" class="error">入力されたURLが正しくありません</p>
   </div>
 </template>
 
@@ -65,6 +65,10 @@ export default class HomeView extends Vue {
     margin: 0;
     margin-bottom: 4px;
     padding: 0;
+  }
+  error {
+    font-size: .9rem;
+    color: red;
   }
 }
 </style>
