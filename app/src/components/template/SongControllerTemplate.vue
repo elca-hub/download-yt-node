@@ -1,5 +1,5 @@
 <template>
-  <div class="song-controller-template">
+  <div class="song-controller-template" ref="songController">
     <song-basic-controller-organism />
     <repeat-controller-organism />
   </div>
@@ -17,6 +17,11 @@ import RepeatControllerOrganism from '@/components/organism/RepeatControllerOrga
   }
 })
 export default class SongControllerTemplate extends Vue {
+  public mounted () {
+    const dom = this.$refs.songController as HTMLElement;
+    const rect = dom.getBoundingClientRect();
+    this.$emit('height', rect.height);
+  }
 }
 </script>
 

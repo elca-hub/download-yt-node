@@ -6,7 +6,7 @@
     <div class="main">
       <input-id-form-template />
       <song-info-template />
-      <song-controller-template />
+      <song-controller-template @height="bodyMargin($event)" />
     </div>
   </div>
 </template>
@@ -26,5 +26,11 @@ import SongControllerTemplate from '@/components/template/SongControllerTemplate
     SongControllerTemplate
   },
 })
-export default class HomeView extends Vue {}
+export default class HomeView extends Vue {
+  public bodyMargin(height: number) {
+    const dom = document.querySelector('body') as HTMLElement;
+    const rect = dom.getBoundingClientRect();
+    dom.style.height = `${rect.height + height}px`;
+  }
+}
 </script>
