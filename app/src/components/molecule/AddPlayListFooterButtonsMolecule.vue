@@ -12,6 +12,7 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 import YoutubeApiService from "@/services/YoutubeApiService";
+import ISongListData from "@/interfaces/ISongListData";
 
 @Component
 export default class AddPlayListFooterButtonsMolecule extends Vue {
@@ -19,7 +20,14 @@ export default class AddPlayListFooterButtonsMolecule extends Vue {
     const playListName = this.$store.state.playListName;
     if (playListName.length) {
       YoutubeApiService.insertSongList(playListName).then(res => {
-        console.log(res);
+        const addData: ISongListData = {
+          listId: res.data.listId,
+          name: playListName
+        };
+        const nowPlayListArr = this.$store.state.songListsList;
+        nowPlayListArr.push(addData);
+        this.$store.commit('setSongListsList', nowPlayListArr);
+        this.$emit('close', true);
       });
     }
   }

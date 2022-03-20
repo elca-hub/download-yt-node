@@ -61,7 +61,7 @@ export default class HomeView extends Vue {
     dom.style.height = `${rect.height + height}px`;
   }
 
-  public async created () {
+  public async getYoutubeData() {
     const songData = await YoutubeApiService.getSongs().then(res => res.data);
     const videoList = [];
     for (const song of songData) {
@@ -74,6 +74,16 @@ export default class HomeView extends Vue {
       videoList.push(appendData);
     }
     this.$store.commit('setVideoList', videoList);
+  }
+
+  public async getSongListData () {
+    const data = await YoutubeApiService.getSongLists().then(res => res.data);
+    this.$store.commit('setSongListsList', data);
+  }
+
+  public created () {
+    this.getYoutubeData();
+    this.getSongListData();
   }
 }
 </script>

@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import IYoutubeData from '@/interfaces/IYoutubeData'
 import YoutubeApiService from '@/services/YoutubeApiService'
+import ISongListData from "@/interfaces/ISongListData";
 
 import createPersistedState from 'vuex-persistedstate'
 
@@ -11,6 +12,7 @@ export default new Vuex.Store({
   state: {
     videoId: '', // 追加された動画のID
     videoList: [] as IYoutubeData[],
+    songListsList: [] as ISongListData[],
     nowPlayingSongIndex: -1, // 現在再生されている曲に対応したvideoListのindex
     isPlaying: false, // 再生中か
     audioObj: new Audio() as HTMLAudioElement, // audioオブジェクト
@@ -51,6 +53,9 @@ export default new Vuex.Store({
     },
     setPlayListName (state, name: string) {
       state.playListName = name
+    },
+    setSongListsList (state, data: ISongListData[]) {
+      state.songListsList = data
     }
   },
   actions: {
