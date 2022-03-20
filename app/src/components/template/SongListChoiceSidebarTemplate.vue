@@ -8,6 +8,9 @@
       <div class="main">
         <slot />
       </div>
+      <div class="footer">
+        <slot name="footer" />
+      </div>
     </div>
   </transition>
 </template>
@@ -60,6 +63,11 @@ export default class SongListSidebarTemplate extends Vue {
   }
   .main {
     padding: 8px;
+  }
+  .footer {
+    position: absolute;
+    bottom: 1rem;
+    right: 1rem;
   }
 }
 </style>
