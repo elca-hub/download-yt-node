@@ -1,14 +1,20 @@
 <template>
   <div class="add-play-list-modal-content">
-    <input type="text" placeholder="プレイリスト名">
+    <input type="text" placeholder="プレイリスト名" v-model="inputPlayListName">
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
+import { Component, Vue, Watch } from 'vue-property-decorator';
 
 @Component
 export default class AddPlayListModalContent extends Vue {
+  public inputPlayListName?: string = '';
+
+  @Watch('inputPlayListName')
+  public onInputPlayListNameChange (newVal: string) {
+    this.$store.commit('setPlayListName', newVal);
+  }
 }
 </script>
 

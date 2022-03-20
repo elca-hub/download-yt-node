@@ -94,4 +94,15 @@ app.get('/sql/songlists', async (req, res) => {
   res.send(JSON.stringify(resData));
 })
 
+app.post('/sql/songlist/insert', async (req, res) => {
+  const db = new sql.Sql();
+  db.connect();
+  const postData = req.body;
+  await db.insertSongList(postData.name);
+  const newId = await db.getMaxSongListId();
+  db.end();
+  res.setHeader('Content-Type', 'application/json');
+  res.send(JSON.stringify({ id: newId }));
+})
+
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))

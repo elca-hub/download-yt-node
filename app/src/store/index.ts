@@ -21,7 +21,8 @@ export default new Vuex.Store({
     audioNowTime: 0, // 現在の再生時間
     audioTimer: 0,
     listId: -1,
-    isSidebarView: false
+    isSidebarView: false,
+    playListName: ''
   },
   getters: {
     getNowPlayingVideoItem (state) {
@@ -47,6 +48,9 @@ export default new Vuex.Store({
     },
     setIsSidebarView (state, isSidebarView: boolean) {
       state.isSidebarView = isSidebarView
+    },
+    setPlayListName (state, name: string) {
+      state.playListName = name
     }
   },
   actions: {

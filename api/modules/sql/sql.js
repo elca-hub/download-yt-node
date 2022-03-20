@@ -90,4 +90,30 @@ exports.Sql = class Sql {
       });
     });
   }
+
+  async getMaxSongListId () {
+    const sql = `SELECT MAX(list_id) AS max_list_id FROM lists`;
+    return new Promise((resolve, reject) => {
+      this.connection.query(sql, (err, result) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(result[0].max_list_id);
+        }
+      });
+    });
+  }
+
+  async insertSongList (songListName) {
+    const sql = `INSERT INTO lists (name) VALUES ('${songListName}')`;
+    return new Promise((resolve, reject) => {
+      this.connection.query(sql, (err, result) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(result);
+        }
+      });
+    });
+  }
 }

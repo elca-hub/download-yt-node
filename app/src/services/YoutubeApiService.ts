@@ -30,5 +30,9 @@ class YoutubeApiService {
   getSongLists(): Promise<any> {
     return http.get("/sql/songlists");
   }
+
+  insertSongList (playListName: string): Promise<any> {
+    return http.post("/sql/songlist/insert", {name: playListName});
+  }
 }
 export default new YoutubeApiService();
