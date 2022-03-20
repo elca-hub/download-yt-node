@@ -126,7 +126,7 @@ export default new Vuex.Store({
   plugins: [
     createPersistedState({
       key: 'yt-speaker',
-      paths: ['repeatTypeObj']
+      paths: ['repeatTypeObj', 'listId']
     })
   ]
 })
