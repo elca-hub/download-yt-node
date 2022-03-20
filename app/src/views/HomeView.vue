@@ -7,6 +7,11 @@
       <input-id-form-template />
       <song-info-template />
       <song-controller-template @height="bodyMargin($event)" />
+      <song-list-choice-sidebar-template :title="'Hello World'" :isShow="false">
+        <p>
+          これはテストです。スロットから書いてます。
+        </p>
+      </song-list-choice-sidebar-template>
     </div>
   </div>
 </template>
@@ -17,6 +22,7 @@ import HeaderTemplate from '@/components/template/HeaderTemplate.vue';
 import InputIdFormTemplate from '@/components/template/InputIdFormTemplate.vue';
 import SongInfoTemplate from '@/components/template/SongInfoTemplate.vue';
 import SongControllerTemplate from '@/components/template/SongControllerTemplate.vue';
+import SongListChoiceSidebarTemplate from '@/components/template/SongListChoiceSidebarTemplate.vue';
 import YoutubeApiService from "@/services/YoutubeApiService";
 import IYoutubeData from "@/interfaces/IYoutubeData";
 
@@ -25,7 +31,8 @@ import IYoutubeData from "@/interfaces/IYoutubeData";
     HeaderTemplate,
     InputIdFormTemplate,
     SongInfoTemplate,
-    SongControllerTemplate
+    SongControllerTemplate,
+    SongListChoiceSidebarTemplate
   },
 })
 export default class HomeView extends Vue {
