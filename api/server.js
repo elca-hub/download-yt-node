@@ -106,4 +106,18 @@ app.post('/sql/songlist/insert', async (req, res) => {
   res.send(JSON.stringify({ id: newId }));
 })
 
+app.delete('/sql/songlist/delete/:listId', async (req, res) => {
+  const listId = req.params.listId;
+  if (listId === '-1') {
+    console.error('listId is -1');
+    res.send('error');
+  } else {
+    const db = new sql.Sql();
+    db.connect();
+    await db.deleteSongList(listId);
+    db.end();
+    res.send('success');
+  }
+})
+
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))

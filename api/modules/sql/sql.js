@@ -116,4 +116,28 @@ exports.Sql = class Sql {
       });
     });
   }
+
+  async deleteSongList (listId) {
+    const sql = `DELETE FROM songs WHERE list_id = ${listId}`;
+    return new Promise((resolve, reject) => {
+      this.connection.query(sql, (err, result) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(result);
+        }
+      });
+    }).then(() => {
+      const sql = `DELETE FROM lists WHERE list_id = ${listId}`;
+      return new Promise((resolve, reject) => {
+        this.connection.query(sql, (err, result) => {
+          if (err) {
+            reject(err);
+          } else {
+            resolve(result);
+          }
+        });
+      });
+    });
+  }
 }

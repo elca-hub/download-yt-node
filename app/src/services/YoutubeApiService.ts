@@ -34,5 +34,9 @@ class YoutubeApiService {
   insertSongList (playListName: string): Promise<any> {
     return http.post("/sql/songlist/insert", {name: playListName});
   }
+
+  removeSongList (listId: number): Promise<any> {
+    return http.delete(`/sql/songlist/delete/${listId}`);
+  }
 }
 export default new YoutubeApiService();
