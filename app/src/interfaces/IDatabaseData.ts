@@ -1,4 +1,4 @@
-export default interface IYoutubeData {
+export default interface IDatabaseData {
   youtubeId: string;
   title: string;
   author: string;

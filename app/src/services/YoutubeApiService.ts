@@ -26,5 +26,9 @@ class YoutubeApiService {
   removeSong (youtubeId: string): Promise<any> {
     return http.delete(`/sql/delete/${youtubeId}`);
   }
+
+  getSongLists(): Promise<any> {
+    return http.get("/sql/songlists");
+  }
 }
 export default new YoutubeApiService();
