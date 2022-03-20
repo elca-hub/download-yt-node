@@ -26,4 +26,4 @@ create table if not exists `lists`
    PRIMARY KEY (`list_id`)
 ) DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
-insert into lists values(-1, 'normal');
+insert into lists values(-1, 'その他');
