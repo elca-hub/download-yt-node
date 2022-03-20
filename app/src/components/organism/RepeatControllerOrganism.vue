@@ -42,6 +42,9 @@ export default class RepeatController extends Vue {
   display: flex;
   justify-content: space-evenly;
   align-items: center;
+  div {
+    cursor: pointer;
+  }
 }
 .repeat-controller-organism {
   display: inline;

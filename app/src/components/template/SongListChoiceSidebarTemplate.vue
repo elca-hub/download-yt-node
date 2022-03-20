@@ -1,7 +1,7 @@
 <template>
   <transition name="song-lsit-sidebar-fade">
     <div class="song-list-choice-sidebar-template" v-if="$store.state.isSidebarView">
-      <i class="bi bi-x close-icon" @click="clickClose()" />
+      <i class="bi bi-x close-icon" @click="clickClose()" style="cursor: pointer;" />
       <div class="header">
         <h1>{{title}}</h1>
       </div>

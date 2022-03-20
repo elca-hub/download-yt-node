@@ -21,7 +21,7 @@ export default class AddPlayListFooterButtonsMolecule extends Vue {
     if (playListName.length) {
       YoutubeApiService.insertSongList(playListName).then(res => {
         const addData: ISongListData = {
-          listId: res.data.listId,
+          listId: res.data.id,
           name: playListName
         };
         const nowPlayListArr = this.$store.state.songListsList;
@@ -40,5 +40,9 @@ export default class AddPlayListFooterButtonsMolecule extends Vue {
   justify-content: space-around;
   align-items: center;
   font-size: 1.8rem;
+}
+
+.bi {
+  cursor: pointer;
 }
 </style>

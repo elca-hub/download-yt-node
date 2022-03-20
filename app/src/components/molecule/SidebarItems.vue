@@ -1,9 +1,11 @@
 <template>
   <div class="song-list-sidebar-items">
-    <div class="song-list-sidebar-item" v-for="item in $store.state.songListsList" :key="item.listId" @click="choiceSongList(item.listId)">
-      <p>{{item.name}}</p>
-      <i class="bi bi-x" v-if="item.listId !== -1" @click="removeSongList(item.listId)" />
-    </div>
+    <transition-group name="sidebar-item" tag="div">
+      <div class="song-list-sidebar-item" v-for="item in $store.state.songListsList" :key="item.listId">
+        <p @click="choiceSongList(item.listId)">{{item.name}}</p>
+        <i class="bi bi-x" v-if="item.listId !== -1" @click="removeSongList(item.listId)" />
+      </div>
+    </transition-group>
   </div>
 </template>
 
@@ -37,3 +39,39 @@ export default class SidebarItems extends Vue {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.sidebar-item-enter-active, .sidebar-item-leave-active {
+  transition: all .5s;
+}
+
+.sidebar-item-enter, .sidebar-item-leave-to {
+  opacity: 0;
+  transform: translateX(-100%);
+}
+
+.song-list-sidebar-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.4rem;
+  margin-top: 0.4rem;
+  p {
+    margin: 0;
+    font-size: 1.4rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    &:hover {
+      transform: scale(0.98);
+    }
+  }
+  i {
+    font-size: 1.4rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    &:hover {
+      opacity: .8;
+    }
+  }
+}
+</style>

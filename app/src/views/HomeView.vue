@@ -10,7 +10,7 @@
       <song-list-choice-sidebar-template title="Play Lists">
         <sidebar-items />
         <template #footer>
-          <p style="margin: 0;" @click="isShowModal = true">
+          <p style="margin: 0; cursor: pointer;" @click="isShowModal = true">
             新規プレイリスト <i class="bi bi-plus-circle" />
           </p>
         </template>
