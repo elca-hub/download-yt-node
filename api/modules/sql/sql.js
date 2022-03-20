@@ -77,4 +77,17 @@ exports.Sql = class Sql {
       });
     });
   }
+
+  async getSongLists () {
+    const sql = `SELECT list_id, name FROM lists`;
+    return new Promise((resolve, reject) => {
+      this.connection.query(sql, (err, result) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(result);
+        }
+      });
+    });
+  }
 }

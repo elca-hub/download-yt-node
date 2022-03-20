@@ -78,4 +78,20 @@ app.delete('/sql/delete/:youtubeId', async (req, res) => {
   res.send('success');
 })
 
+app.get('/sql/songlists', async (req, res) => {
+  const db = new sql.Sql();
+  db.connect();
+  const result = await db.getSongLists();
+  db.end();
+  const resData = result.map((item) => {
+    const resItem = {};
+    Object.keys(item).forEach((key) => {
+      resItem[changeToCamelCase(key)] = item[key];
+    });
+    return resItem;
+  });
+  res.setHeader('Content-Type', 'application/json');
+  res.send(JSON.stringify(resData));
+})
+
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))
