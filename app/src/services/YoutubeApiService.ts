@@ -15,8 +15,8 @@ class YoutubeApiService {
     return `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`;
   }
 
-  getSongs(): Promise<any> {
-    return http.get("/sql/songs");
+  getSongs(listId: number): Promise<any> {
+    return http.get(`/sql/songs/${listId}`);
   }
 
   insertSong (song: IDatabaseData): Promise<any> {

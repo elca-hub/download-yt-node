@@ -26,7 +26,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
+import { Component, Vue, Watch } from 'vue-property-decorator';
 import HeaderTemplate from '@/components/template/HeaderTemplate.vue';
 import InputIdFormTemplate from '@/components/template/InputIdFormTemplate.vue';
 import SongInfoTemplate from '@/components/template/SongInfoTemplate.vue';
@@ -61,8 +61,10 @@ export default class HomeView extends Vue {
     dom.style.height = `${rect.height + height}px`;
   }
 
+  @Watch('$store.state.listId')
   public async getYoutubeData() {
-    const songData = await YoutubeApiService.getSongs().then(res => res.data);
+    const listId = this.$store.state.listId;
+    const songData = await YoutubeApiService.getSongs(listId).then(res => res.data);
     const videoList = [];
     for (const song of songData) {
       const appendData: IYoutubeData = {

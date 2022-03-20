@@ -56,6 +56,9 @@ export default new Vuex.Store({
     },
     setSongListsList (state, data: ISongListData[]) {
       state.songListsList = data
+    },
+    setListId (state, id: number) {
+      state.listId = id
     }
   },
   actions: {
@@ -113,6 +116,14 @@ export default new Vuex.Store({
       state.repeatTypeObj.index++
       if (state.repeatTypeObj.index >= state.repeatTypeObj.list.length) state.repeatTypeObj.index = 0
     },
+    initSongAudio ({state, dispatch}) {
+      state.nowPlayingSongIndex = -1
+      state.audioObj.pause()
+      state.audioObj.currentTime = 0
+      state.audioObj.src = ''
+      dispatch('stopTimer')
+      state.isPlaying = false
+    },
     removeSongList ({ state, dispatch }) {
       const nowPlayingSongIndex = state.nowPlayingSongIndex
       if (nowPlayingSongIndex === -1) return
@@ -120,10 +131,7 @@ export default new Vuex.Store({
       if (state.videoList.length <= state.nowPlayingSongIndex) state.nowPlayingSongIndex = state.videoList.length - 1
       if (state.videoList.length === 0) {
         // 初期化
-        state.nowPlayingSongIndex = -1
-        state.audioObj.pause()
-        state.audioObj.currentTime = 0
-        dispatch('stopTimer')
+        dispatch('initSongAudio')
       } else {
         const playVideoId = state.videoList[state.nowPlayingSongIndex].id
         dispatch('setAudioObj', playVideoId)

@@ -43,10 +43,11 @@ app.get('/song/:youtubeId/info', (req, res) => {
   });
 })
 
-app.get('/sql/songs', async (req, res) => {
+app.get('/sql/songs/:listId', async (req, res) => {
+  const listId = req.params.listId;
   const db = new sql.Sql();
   db.connect();
-  const result = await db.getSongsData();
+  const result = await db.getSongsData(listId);
   db.end();
   // resultの命名をcamelCaseに変換する
   const resData = result.map((item) => {
