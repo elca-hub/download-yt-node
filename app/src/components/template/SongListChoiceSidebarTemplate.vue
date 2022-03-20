@@ -1,6 +1,6 @@
 <template>
   <transition name="song-lsit-sidebar-fade">
-    <div class="song-list-choice-sidebar-template" v-if="resShow">
+    <div class="song-list-choice-sidebar-template" v-if="$store.state.isSidebarView">
       <i class="bi bi-x close-icon" @click="clickClose()" />
       <div class="header">
         <h1>{{title}}</h1>
@@ -13,26 +13,14 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop, Watch } from 'vue-property-decorator';
+import { Component, Vue, Prop } from 'vue-property-decorator';
 @Component
 export default class SongListSidebarTemplate extends Vue {
   @Prop({ default: '' })
   public title!: string;
-  @Prop({ default: false })
-  public isShow!: boolean;
-
-  public resShow = false;
 
   public clickClose () {
-    this.resShow = false;
-  }
-  @Watch('isShow')
-  public toggleShow () {
-    this.resShow = this.isShow;
-  }
-
-  public created () {
-    this.resShow = this.isShow;
+    this.$store.state.isSidebarView = false;
   }
 }
 </script>

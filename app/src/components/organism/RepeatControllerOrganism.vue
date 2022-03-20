@@ -1,5 +1,8 @@
 <template>
-  <div style="text-align: center;">
+  <div class="repeat-controller-parent">
+    <div class="view-list-button">
+      <i class="bi bi-music-note-list" @click="$store.commit('setIsSidebarView', true)" />
+    </div>
     <div class="repeat-controller-organism" :class="{ 'active': nowRepeatType !== 'none' }">
       <i class="bi bi-arrow-repeat" @click="changeRepeatType()" />
       <p v-if="nowRepeatType === 'one'">1</p>
@@ -35,6 +38,11 @@ export default class RepeatController extends Vue {
 </script>
 
 <style lang="scss" scoped>
+.repeat-controller-parent {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
 .repeat-controller-organism {
   display: inline;
   text-align: center;

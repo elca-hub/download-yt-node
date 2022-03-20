@@ -7,7 +7,7 @@
       <input-id-form-template />
       <song-info-template />
       <song-controller-template @height="bodyMargin($event)" />
-      <song-list-choice-sidebar-template :title="'Hello World'" :isShow="false">
+      <song-list-choice-sidebar-template :title="'Hello World'">
         <p>
           これはテストです。スロットから書いてます。
         </p>

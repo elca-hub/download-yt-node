@@ -20,7 +20,8 @@ export default new Vuex.Store({
     },
     audioNowTime: 0, // 現在の再生時間
     audioTimer: 0,
-    listId: -1
+    listId: -1,
+    isSidebarView: false
   },
   getters: {
     getNowPlayingVideoItem (state) {
@@ -43,6 +44,9 @@ export default new Vuex.Store({
     },
     setVideoList (state, data: IYoutubeData[]) {
       state.videoList = data
+    },
+    setIsSidebarView (state, isSidebarView: boolean) {
+      state.isSidebarView = isSidebarView
     }
   },
   actions: {
