@@ -1,17 +1,19 @@
 <template>
-  <div class="modal" v-if="isShow">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h2>{{title}}</h2>
-      </div>
-      <div class="modal-body">
-        <slot />
-      </div>
-      <div class="modal-footer">
-        <slot name="footer" />
+  <transition name="modal-fade">
+    <div class="modal" v-if="isShow">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2>{{title}}</h2>
+        </div>
+        <div class="modal-body">
+          <slot />
+        </div>
+        <div class="modal-footer">
+          <slot name="footer" />
+        </div>
       </div>
     </div>
-  </div>
+  </transition>
 </template>
 
 <script lang="ts">
@@ -27,6 +29,14 @@ export default class ModalTemplate extends Vue {
 </script>
 
 <style lang="scss" scoped>
+
+.modal-fade-enter-active, .modal-fade-leave-active {
+  transition: opacity .5s;
+}
+.modal-fade-enter, .modal-fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
+}
+
 .modal {
   position: fixed;
   top: 0;
