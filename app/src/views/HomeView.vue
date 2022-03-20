@@ -16,7 +16,7 @@
         </template>
       </song-list-choice-sidebar-template>
       <modal-template title="新規プレイリスト" :isShow="isShowModal">
-        <input type="text" placeholder="プレイリスト名" />
+        <add-play-list-modal-content-organism />
         <template #footer>
           <add-play-list-footer-buttons-molecule @close="isShowModal = false" />
         </template>
@@ -35,6 +35,7 @@ import SongListChoiceSidebarTemplate from '@/components/template/SongListChoiceS
 import ModalTemplate from '@/components/template/ModalTemplate.vue';
 import SidebarItems from '@/components/molecule/SidebarItems.vue';
 import AddPlayListFooterButtonsMolecule from '@/components/molecule/AddPlayListFooterButtonsMolecule.vue';
+import AddPlayListModalContentOrganism from '@/components/organism/AddPlayListModalContentOrganism.vue';
 import YoutubeApiService from "@/services/YoutubeApiService";
 import IYoutubeData from "@/interfaces/IYoutubeData";
 
@@ -47,7 +48,8 @@ import IYoutubeData from "@/interfaces/IYoutubeData";
     SongListChoiceSidebarTemplate,
     SidebarItems,
     ModalTemplate,
-    AddPlayListFooterButtonsMolecule
+    AddPlayListFooterButtonsMolecule,
+    AddPlayListModalContentOrganism
   },
 })
 export default class HomeView extends Vue {

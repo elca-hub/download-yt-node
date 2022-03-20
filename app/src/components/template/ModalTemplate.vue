@@ -57,6 +57,7 @@ export default class ModalTemplate extends Vue {
     border-radius: 4px;
     .modal-header {
       text-align: center;
+      margin-bottom: 1rem;
       h2 {
         margin: 0;
       }
