@@ -4,8 +4,6 @@ const express = require('express')
 const app = express()
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const path = require('path');
-const fs = require('fs');
 const port = 3030;
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
