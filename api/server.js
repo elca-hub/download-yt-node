@@ -4,11 +4,13 @@ const express = require('express')
 const app = express()
 const bodyParser = require('body-parser');
 const cors = require('cors');
-
+const path = require('path');
+const fs = require('fs');
 const port = 3030;
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(cors());
+
 
 const changeToCamelCase = (str) => {
   return str.replace(/[-_]([a-z])/g, (g) => {
@@ -18,9 +20,9 @@ const changeToCamelCase = (str) => {
 
 app.get('/song/:youtubeId/audio', (req, res) => {
   const youtubeId = req.params.youtubeId;
-  const path = `https://www.youtube.com/watch?v=${youtubeId}`;
+  const urlPath = `https://www.youtube.com/watch?v=${youtubeId}`;
   res.setHeader('Content-Type', 'audio/mpeg');
-  const audio = ytdl(path, {
+  const audio = ytdl(urlPath, {
     filter: 'audioonly',
     quality: 'highestaudio',
     format: 'mp3',
@@ -30,8 +32,8 @@ app.get('/song/:youtubeId/audio', (req, res) => {
 
 app.get('/song/:youtubeId/info', (req, res) => {
   const youtubeId = req.params.youtubeId;
-  const path = `https://www.youtube.com/watch?v=${youtubeId}`;
-  ytdl.getInfo(path).then((info) => {
+  const urlPath = `https://www.youtube.com/watch?v=${youtubeId}`;
+  ytdl.getInfo(urlPath).then((info) => {
     const choiceThumbnail = info.player_response.videoDetails.thumbnail.thumbnails[info.player_response.videoDetails.thumbnail.thumbnails.length - 1];
     res.setHeader('Content-Type', 'application/json');
     const resData = {
